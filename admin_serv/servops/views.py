@@ -7,6 +7,9 @@ from reportlab.pdfgen import canvas
 def index(request):
     return render(request, 'servops/home.html')
 
+def dashboard(request):
+    return render(request, 'servops/dashboard.html')
+
 def pdf(request):
     buffer = io.BytesIO()
     p = canvas.Canvas(buffer)
