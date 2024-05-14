@@ -16,3 +16,18 @@ AdministrationServer est une application web dynamique conçue pour la gestion e
 - **Gestion des applications :** Permet d'ajouter de nouvelles applications avec leurs informations telles que le nom de l'application, le logo et l'utilisateur associé.
 
 - **Validation des ressources :** Vérifie automatiquement que l'espace mémoire et le nombre de processeurs sont suffisants sur le serveur avant
+
+
+## Nouveautées :
+
+- **Création de rapport de service installé sur un serveur (PDF)**
+
+## Quelques commandes utiles :
+
+- Sauver les modules : pip freeze > requirements.txt
+
+
+## Todo
+
+- Ajout du parametre DATABASES dans settings.py
+- Mise en place du modèle relationnel
