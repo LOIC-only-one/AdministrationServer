@@ -10,16 +10,15 @@
 </head>
 <body>
     <header>
+        <nav>
+            <ul>
+                <li><a href="">Accueil</a></li>
+                <li><a href="">Services</a></li>
+                <li><a href="">Dashboard</a></li>
+            </ul>
+        </nav>
         <h1>{% block header %}{% endblock %}</h1>
     </header>
-
-    <nav>
-        <!-- Menu de navigation -->
-        <ul>
-            <li><a href="">Accueil</a></li>
-            <li><a href="">À propos</a></li>
-        </ul>
-    </nav>
 
     <main>
         {% block content %}
