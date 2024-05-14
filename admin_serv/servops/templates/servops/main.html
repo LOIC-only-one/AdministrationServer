@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <title>{% block title %}Titre de la Page{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>{% block header %}{% endblock %}</h1>
+    </header>
+
+    <nav>
+        <!-- Menu de navigation -->
+        <ul>
+            <li><a href="">Accueil</a></li>
+            <li><a href="">À propos</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ year }} ServOps - SAE Projet informatique</p>
+    </footer>
+</body>
+</html>
