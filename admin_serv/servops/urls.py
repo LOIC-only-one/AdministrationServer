@@ -30,4 +30,10 @@ urlpatterns = [
     path('users/<int:id>/', views.AfficheUsersView, name="affiche_users"),
     path('users/read/', views.ReadUsersView, name='read_users'),
     #path('users/update/<int:id>/', views.UpdateUsersView, name='update_users')
+
+    ## CRUD APPLICATION
+    path('applications/home/', views.applications_home, name='applications_home'),
+    path('applications/create/', views.create_application, name='create_application'),
+    path('applications/update/<int:application_id>/', views.update_application, name='update_application'),
+    path('applications/delete/<int:application_id>/', views.delete_application, name='delete_application'),
 ]
