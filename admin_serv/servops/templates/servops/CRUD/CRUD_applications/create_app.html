@@ -1,0 +1,13 @@
+{% extends 'servops/MAIN/main_home.html' %}
+
+{% block title %}Créer une nouvelle application{% endblock %}
+{% block header %}Créer une nouvelle application{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer</button>
+</form>
+
+{% endblock %}
