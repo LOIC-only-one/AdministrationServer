@@ -31,3 +31,24 @@ nav ul li a {
 nav ul li a:hover {
     background-color: #555;
 }
+
+h2 {
+    color: rgb(0, 0, 0);
+    padding-left: 50px;
+    
+}
+
+p {
+    color: rgb(0, 0, 0);
+    padding: 1px;
+    
+}
+
+header {
+    color: white;
+    border-radius: 25px;
+    background-color: rgb(31, 0, 145);
+    padding-bottom: 10px;
+    text-align: center;
+    
+}
