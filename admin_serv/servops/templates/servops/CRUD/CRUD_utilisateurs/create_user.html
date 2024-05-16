@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <title>{% block title %}Création - Utilisateurs{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li><a href="">Services</a></li>
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            </ul>
+        </nav>
+        <h1>{% block header %}{% endblock %}</h1>
+    </header>
+
+    <main>
+        {% block content %}
+            <h2>Créer un nouvel utilisateur</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Créer</button>
+            </form>
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ year }} ServOps - SAE Projet informatique</p>
+    </footer>
+</body>
+</html>

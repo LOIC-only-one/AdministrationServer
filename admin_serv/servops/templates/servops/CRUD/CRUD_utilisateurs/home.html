@@ -1,11 +1,37 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <title>{% block title %}Gestion - Utilisateurs{% endblock %}</title>
 </head>
 <body>
-    <p>Hello world</p>
-</body>
-</html>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li><a href="">Services</a></li>
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            </ul>
+        </nav>
+        <h1>{% block header %}Actions - Disponible{% endblock %}</h1>
+    </header>
+
+    <main>
+        {% block content %}
+            <h2>Pannel d'ajout des Utilisateurs</h2>
+            <a href="#" class="button">Create</a>
+            <a href="#" class="button">Read</a>
+            <a href="#" class="button">Update</a>
+            <a href="#" class="button">Delete</a>
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ year }} ServOps - SAE Projet informatique</p>
+    </footer>
+    </body>
+    </html>
