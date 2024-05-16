@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
@@ -73,6 +73,40 @@ def ReadUsersView(request):
 def AfficheUsersView(request, id):
     user = User.objects.get(id=id)
     return render(request, 'servops/CRUD/CRUD_utilisateurs/affiche.html', {'user': user})
+
+## CRUD_Utilisateur
+
+def applications_home(request):
+    applications = Application.objects.all()
+    return render(request, 'servops/CRUD/CRUD_applications/home.html', {'applications': applications})
+
+def create_application(request):
+    if request.method == "POST":
+        form = ApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('applications_home')
+    else:
+        form = ApplicationForm()
+    return render(request, 'servops/CRUD/CRUD_applications/create_app.html', {'form': form})
+
+def update_application(request, application_id):
+    application = get_object_or_404(Application, pk=application_id)
+    if request.method == "POST":
+        form = ApplicationForm(request.POST, request.FILES, instance=application)
+        if form.is_valid():
+            form.save()
+            return redirect('applications_home')
+    else:
+        form = ApplicationForm(instance=application)
+    return render(request, 'servops/CRUD/CRUD_applications/update_app.html', {'form': form})
+
+def delete_application(request, application_id):
+    application = get_object_or_404(Application, pk=application_id)
+    if request.method == "POST":
+        application.delete()
+        return redirect('applications_home')
+    return render(request, 'servops/CRUD/CRUD_applications/delete_app.html', {'application': application})
 
 ## Generation du rapport en PDF
 def pdf(request):
