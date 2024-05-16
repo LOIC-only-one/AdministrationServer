@@ -1,0 +1,12 @@
+{% extends 'servops/MAIN/main_home.html' %}
+
+{% block title %}Supprimer l'application{% endblock %}
+{% block header %}Supprimer l'application{% endblock %}
+
+{% block content %}
+<h2>Confirmez la suppression de l'application "{{ application.name }}" ?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmer la suppression</button>
+</form>
+{% endblock %}
