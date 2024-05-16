@@ -30,8 +30,9 @@
     </aside>
 
     <main>
+        <h1>{% block header %}{% endblock header %}</h1>
         {% block content %}
-        {% endblock %}
+        {% endblock content %}
     </main>
 
     <footer>
