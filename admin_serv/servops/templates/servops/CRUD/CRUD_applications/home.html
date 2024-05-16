@@ -1,0 +1,23 @@
+{% extends 'servops/MAIN/main_home.html' %}
+
+{% block title %}Gestion des Applications{% endblock %}
+{% block header %}Gestion des Applications{% endblock %}
+
+{% block content %}
+    <h2>Liste des Applications</h2>
+    <ul>
+        {% for application in applications %}
+            <li>
+                <h3>{{ application.name }}</h3>
+                <img src="{{ application.logo.url }}" alt="{{ application.name }}">
+                <p>Créé par: {{ application.user.username }}</p>
+                <a href="{% url 'update_application' application.id %}">Modifier</a>
+                <form action="{% url 'delete_application' application.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Supprimer">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_application' %}">Ajouter une nouvelle application</a>
+{% endblock %}
