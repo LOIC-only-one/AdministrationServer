@@ -1,0 +1,12 @@
+{% extends 'servops/MAIN/main_home.html' %}
+
+{% block title %}Modifier l'application{% endblock %}
+{% block header %}Modifier l'application{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer les modifications</button>
+</form>
+{% endblock %}
