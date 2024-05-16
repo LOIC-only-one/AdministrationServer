@@ -1,0 +1,10 @@
+{% extends 'servops/MAIN/main_home.html' %}
+
+{% block title %}Mon Dashboard - Information utilisateur{% endblock %}
+
+{% block header %}Récuperation - ID{% endblock %}
+{% block content %}
+    <h2>Informations de l'utilisateur</h2>
+    <p>Nom d'utilisateur : {{ user.username }}</p>
+    <p>Email : {{ user.email }}</p>
+{% endblock %}

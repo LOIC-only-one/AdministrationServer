@@ -56,3 +56,6 @@ class ResourceUsageForm(forms.ModelForm):
     class Meta:
         model = ResourceUsage
         fields = ['application', 'service']
+        
+class GetIDForm(forms.Form):
+    id = forms.IntegerField()

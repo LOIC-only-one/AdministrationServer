@@ -23,11 +23,20 @@
     <main>
         {% block content %}
             <h2>Pannel d'ajout des Utilisateurs</h2>
-            <a href="#" class="button">Create</a>
-            <a href="#" class="button">Read</a>
+            <a href="{% url 'create_users' %}" class="button">Create</a>
+            <a href="{% url 'delete_users' %}" class="button">Delete</a>
             <a href="#" class="button">Update</a>
-            <a href="#" class="button">Delete</a>
+            <a href="{% url 'read_users' %}">Lire les utilisateurs</a>
         {% endblock %}
+
+        <h2>Liste des utilisateurs</h2>
+        <ul>
+            {% for user in users %}
+                <li>ID: {{ user.id }}, Email: {{ user.email }}</li>
+            {% empty %}
+                <li>Aucun utilisateur trouvé.</li>
+            {% endfor %}
+        </ul>
     </main>
 
     <footer>
