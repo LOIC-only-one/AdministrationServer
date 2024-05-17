@@ -17,6 +17,10 @@ AdministrationServer est une application web dynamique conçue pour la gestion e
 
 - **Validation des ressources :** Vérifie automatiquement que l'espace mémoire et le nombre de processeurs sont suffisants sur le serveur avant
 
+## CRUD Disponible :
+
+- **Utilisateurs** (1/6)  --> 17/05
+- **Applications** (2/6)  --> 17/05
 
 ## Nouveautées :
 
@@ -29,5 +33,5 @@ AdministrationServer est une application web dynamique conçue pour la gestion e
 
 ## Todo
 
-- Ajout du parametre DATABASES dans settings.py
-- Mise en place du modèle relationnel
+- Création du style et disposition 
+- Création des CRUD
