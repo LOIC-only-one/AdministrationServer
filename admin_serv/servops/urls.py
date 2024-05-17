@@ -31,6 +31,13 @@ urlpatterns = [
     path('users/read/', views.ReadUsersView, name='read_users'),
     #path('users/update/<int:id>/', views.UpdateUsersView, name='update_users')
 
+    ## CRUD SERVER TYPES
+    #path('server_types/create/', views.CreateServerTypeView, name='create_server_type'),
+    #path('server_types/delete/', views.DeleteServerTypeView, name='delete_server_type'),
+    #path('server_types/<int:id>/', views.AfficheServerTypeView, name="affiche_server_type"),
+    #path('server_types/read/', views.ReadServerTypeView, name='read_server_type'),
+    #path('server_types/update/<int:id>/', views.UpdateServerTypeView, name='update_server_type')
+
     ## CRUD APPLICATION
     path('applications/home/', views.applications_home, name='applications_home'),
     path('applications/create/', views.create_application, name='create_application'),

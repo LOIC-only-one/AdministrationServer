@@ -29,8 +29,8 @@ def users(request):
     return render(request, 'servops/CRUD/CRUD_utilisateurs/home.html', {'users': users})
 
 
-## CREATE_CRUD
 
+## CRUD Server
 def CreateServerView(request):
     if request.method == "POST":
         form = ServerForm(request.POST)
@@ -42,6 +42,7 @@ def CreateServerView(request):
         return render(request, 'servops/CRUD/CRUD_serveurs/create_serveur.html')
 
 
+## Crud Utilisateurs
 def CreateUsersView(request):
     if request.method == "POST":
         form = UserForm(request.POST)
@@ -74,8 +75,9 @@ def AfficheUsersView(request, id):
     user = User.objects.get(id=id)
     return render(request, 'servops/CRUD/CRUD_utilisateurs/affiche.html', {'user': user})
 
-## CRUD_Utilisateur
 
+
+## CRUD_Applications
 def applications_home(request):
     applications = Application.objects.all()
     return render(request, 'servops/CRUD/CRUD_applications/home.html', {'applications': applications})
