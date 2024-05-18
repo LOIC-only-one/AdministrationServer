@@ -1,5 +1,5 @@
 from django import forms
-from .models import Server, ServerType, User, Service, Application, ResourceUsage
+from .models import Server, ServerType, ServUser, Service, Application, ResourceUsage
 
 class ServerForm(forms.ModelForm):
     name = forms.CharField(label='Nom')
@@ -26,7 +26,7 @@ class UserForm(forms.ModelForm):
     email = forms.EmailField(label='Email')
 
     class Meta:
-        model = User
+        model = ServUser
         fields = ['name', 'surname', 'email']
 
 class ServiceForm(forms.ModelForm):

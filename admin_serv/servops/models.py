@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 class ServerType(models.Model):
     type = models.CharField(max_length=200)
@@ -28,3 +27,8 @@ class Application(models.Model):
 class ResourceUsage(models.Model):
     application = models.ForeignKey(Application, on_delete=models.CASCADE, related_name='resource_usages')
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='resource_usages')
+    
+class ServUser(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
