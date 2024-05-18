@@ -1,46 +1,22 @@
+{% extends "servops/MAIN/main_dashboard.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
-    <title>{% block title %}Gestion - Utilisateurs{% endblock %}</title>
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Accueil</a></li>
-                <li><a href="">Services</a></li>
-                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            </ul>
-        </nav>
-        <h1>{% block header %}Actions - Disponible{% endblock %}</h1>
-    </header>
+{% block title %}Gestion - Utilisateurs{% endblock %}
 
-    <main>
-        {% block content %}
-            <h2>Pannel d'ajout des Utilisateurs</h2>
-            <a href="{% url 'create_users' %}" class="button">Create</a>
-            <a href="{% url 'delete_users' %}" class="button">Delete</a>
-            <a href="#" class="button">Update</a>
-            <a href="{% url 'read_users' %}">Lire les utilisateurs</a>
-        {% endblock %}
+{% block header %}Actions - Disponible{% endblock %}
 
-        <h2>Liste des utilisateurs</h2>
-        <ul>
-            {% for user in users %}
-                <li>ID: {{ user.id }}, Email: {{ user.email }}</li>
-            {% empty %}
-                <li>Aucun utilisateur trouvé.</li>
-            {% endfor %}
-        </ul>
-    </main>
+{% block sidebar %}
+<ul>
+    <li><a href="{% url 'create_users' %}" class="button">Créer</a></li>
+    <li><a href="{% url 'delete_users' %}" class="button">Supprimer</a></li>
+    <li><a href="#" class="button">Mettre à jour</a></li>
+</ul>
+{% endblock sidebar %}
 
-    <footer>
-        <p>&copy; {{ year }} ServOps - SAE Projet informatique</p>
-    </footer>
-    </body>
-    </html>
+{% block content %}
+{% for user in users %}
+    <li>ID: {{ user.id }}, Email: {{ user.email }}</li>
+    {% empty %}
+    <li>Aucun utilisateur trouvé.</li>
+{% endfor %}
+{% endblock content %}

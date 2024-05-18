@@ -5,4 +5,12 @@
 {% block header %}Mon Pannel d'Administration{% endblock %}
 {% block content %}
     <p>Bienvenue sur mon pannel d'administration !</p>
+{% endblock %}       
+
+{% block sidebar %}
+    <li><a href="{% url 'applications_home'%}">Applications</a></li>
+    <li><a href="#">Serveurs</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Types de Serveurs</a></li>
+    <li><a href="{% url 'users_crud'%}">Utilisateurs</a></li>
 {% endblock %}
