@@ -7,6 +7,7 @@
 
 {% block sidebar %}
 <ul>
+    <li><a href="{% url 'dashboard' %}" class="button">Dashboard</a></li>
     <li><a href="{% url 'create_users' %}" class="button">Créer</a></li>
     <li><a href="{% url 'delete_users' %}" class="button">Supprimer</a></li>
     <li><a href="#" class="button">Mettre à jour</a></li>
@@ -14,9 +15,12 @@
 {% endblock sidebar %}
 
 {% block content %}
+<table class="table-user">
+    <tr> <th>ID</th> <th>FN</th> <th>LN</th> <th>Email</th> </tr>
 {% for user in users %}
-    <li>ID: {{ user.id }}, Email: {{ user.email }}</li>
+    <tr> <th>{{user.id}}</th> <th>{{user.first_name}}</th> <th>{{user.last_name}}</th> <th>{{user.email}}</th>
     {% empty %}
     <li>Aucun utilisateur trouvé.</li>
 {% endfor %}
+</table>
 {% endblock content %}
