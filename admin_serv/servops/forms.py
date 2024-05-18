@@ -21,14 +21,14 @@ class ServerTypeForm(forms.ModelForm):
         fields = ['type', 'description']
 
 class UserForm(forms.ModelForm):
-    name = forms.CharField(label='Nom')
-    surname = forms.CharField(label='Prénom')
+    first_name = forms.CharField(label='Nom')
+    last_name = forms.CharField(label='Prénom')
     email = forms.EmailField(label='Email')
 
     class Meta:
         model = ServUser
-        fields = ['name', 'surname', 'email']
-
+        fields = ['first_name', 'last_name', 'email']
+        
 class ServiceForm(forms.ModelForm):
     name = forms.CharField(label='Nom du service')
     launch_date = forms.DateField(label='Date de lancement')
@@ -43,7 +43,7 @@ class ServiceForm(forms.ModelForm):
 class ApplicationForm(forms.ModelForm):
     name = forms.CharField(label='Nom de l\'application')
     logo = forms.ImageField(label='Logo')
-    user = forms.ModelChoiceField(queryset=User.objects.all(), label='Utilisateur')
+    user = forms.ModelChoiceField(queryset=ServUser.objects.all(), label='Utilisateur')
 
     class Meta:
         model = Application

@@ -5,6 +5,7 @@
 {% block header %}Récuperation - ID{% endblock %}
 {% block content %}
     <h2>Informations de l'utilisateur</h2>
-    <p>Nom d'utilisateur : {{ user.username }}</p>
+    <p>Nom d'utilisateur : {{ user.first_name }}</p>
+    <p>Prenom d'utilisateur : {{ user.last_name }}</p>
     <p>Email : {{ user.email }}</p>
 {% endblock %}

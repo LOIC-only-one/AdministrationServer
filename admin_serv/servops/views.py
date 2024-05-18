@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
-from .models import Server, ServerType, User, Service, Application, ResourceUsage
+from .models import Server, ServerType, ServUser, Service, Application, ResourceUsage
 from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, ResourceUsageForm, GetIDForm
 
 ## Créations des vues pour les index SR du site
@@ -25,7 +25,7 @@ def server_types(request):
     return render(request, 'servops/CRUD/CRUD_type_serveurs/home.html')
     
 def users(request):
-    users = User.objects.all()
+    users = ServUser.objects.all()
     return render(request, 'servops/CRUD/CRUD_utilisateurs/home.html', {'users': users})
 
 
@@ -57,7 +57,7 @@ def DeleteUsersView(request):
     form = GetIDForm(request.POST or None)
     if form.is_valid():
         id = form.cleaned_data.get('id')
-        obj = User.objects.get(id=id)
+        obj = ServUser.objects.get(id=id)
         obj.delete()
         return redirect('users_crud')
     return render(request, 'servops/CRUD/CRUD_utilisateurs/delete.html', {'form': form})
@@ -72,7 +72,7 @@ def ReadUsersView(request):
 
 
 def AfficheUsersView(request, id):
-    user = User.objects.get(id=id)
+    user = ServUser.objects.get(id=id)
     return render(request, 'servops/CRUD/CRUD_utilisateurs/affiche.html', {'user': user})
 
 
