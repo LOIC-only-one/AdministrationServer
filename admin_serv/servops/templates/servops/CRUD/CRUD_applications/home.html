@@ -14,9 +14,9 @@
         {% for application in applications %}
             <li>
                 <h3>{{ application.name }}</h3>
-                <img src="{{ application.logo.url}}" alt="{{ application.name }}">
-                <p>{{application.logo.url}}</p>
-                <p>Créé par: {{ application.user.username }}</p>
+                <img src="{{ application.logo.url }}" alt="{{ application.name }}" class="image-upload">
+                <p>{{application.logo}}</p>
+                <p>Créé par: {{ application.user }}</p>
                 <a href="{% url 'update_application' application.id %}">Modifier</a>
                 <form action="{% url 'delete_application' application.id %}" method="post">
                     {% csrf_token %}

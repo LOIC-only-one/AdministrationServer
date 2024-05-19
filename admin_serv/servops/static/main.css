@@ -117,3 +117,8 @@ main p, main h1, main h2, main h3, a {
     text-align: center;
     padding: 20px;
 }
+
+.image-upload {
+    height: 100px;
+    width: 100px;   
+}
