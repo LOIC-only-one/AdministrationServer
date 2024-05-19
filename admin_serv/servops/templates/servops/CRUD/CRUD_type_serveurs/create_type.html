@@ -1,0 +1,23 @@
+{% extends "servops/MAIN/main_dashboard.html" %}
+{% load static %}
+
+{% block title %}Gestion - Type de serveurs{% endblock %}
+
+{% block header %}Actions - Disponible{% endblock %}
+
+{% block sidebar %}
+<ul>
+    <li><a href="{% url 'dashboard' %}" class="button">Dashboard</a></li>
+    <li><a href="{% url 'server_types_crud' %}" class="button">Serveurs Types</a></li>
+</ul>
+{% endblock sidebar %}
+
+{% block content %}
+<h2>Créer un type de serveur :</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Créer</button>
+</form>
+
+{% endblock content %}

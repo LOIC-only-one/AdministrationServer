@@ -85,3 +85,7 @@ footer {
     padding: 2%;
 }
 
+main p, main h1, main h2, main h3, a {
+    font-size: 1em;
+    margin-left:20px;
+}

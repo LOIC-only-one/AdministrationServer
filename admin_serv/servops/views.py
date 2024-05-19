@@ -110,6 +110,37 @@ def delete_application(request, application_id):
         return redirect('applications_home')
     return render(request, 'servops/CRUD/CRUD_applications/delete_app.html', {'application': application})
 
+## CRUD Type Serveur
+def CreateServerTypeView(request):
+    if request.method == "POST":
+        form = ServerTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('server_types_crud')
+    else:
+        form = ServerTypeForm()
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/create_type.html', {'form': form})
+
+def DeleteServerTypeView(request):
+    form = GetIDForm(request.POST or None)
+    if form.is_valid():
+        id = form.cleaned_data.get('id')
+        obj = ServerType.objects.get(id=id)
+        obj.delete()
+        return redirect('server_types_crud')
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/delete.html', {'form': form})
+
+def ReadServerTypeView(request):
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('affiche_server_type', id=id)
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/read_type.html', {'form': form})
+
+def AfficheServerTypeView(request, id):
+    server_type = ServerType.objects.get(id=id)
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/affiche_type.html', {'server_type': server_type})
+
 ## Generation du rapport en PDF
 def pdf(request):
     """

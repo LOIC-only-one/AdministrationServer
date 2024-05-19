@@ -1,0 +1,20 @@
+{% extends "servops/MAIN/main_dashboard.html" %}
+{% load static %}
+
+{% block title %}Gestion - Type de serveurs{% endblock %}
+
+{% block header %}Actions - Disponible{% endblock %}
+
+{% block sidebar %}
+<ul>
+    <li><a href="{% url 'dashboard' %}" class="button">Dashboard</a></li>
+    <li><a href="{% url 'create_server_type' %}" class="button">Créer</a></li>
+    <li><a href="{% url 'delete_server_type' %}" class="button">Supprimer</a></li>
+    <li><a href="{% url 'read_server_type' %}" class="button">Chercher</a></li>
+    <li><a href="#" class="button">Mettre à jour</a></li>
+</ul>
+{% endblock sidebar %}
+
+{% block content %}
+<p>Liste des types de serveurs</p>
+{% endblock content %}

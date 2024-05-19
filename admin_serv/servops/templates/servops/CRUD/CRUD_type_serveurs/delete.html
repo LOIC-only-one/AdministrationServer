@@ -1,0 +1,13 @@
+{% extends 'servops/MAIN/main_dashboard.html' %}
+
+{% block title %}Mon Dashboard - ID{% endblock %}
+
+{% block header %}Récuperation - ID{% endblock %}
+{% block content %}
+    <p>Action : Delete</p>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Supprimer</button>
+    </form>
+{% endblock %}
