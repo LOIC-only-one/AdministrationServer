@@ -21,6 +21,7 @@ AdministrationServer est une application web dynamique conçue pour la gestion e
 
 - **Utilisateurs** (1/6)  --> 17/05
 - **Applications** (2/6)  --> 17/05
+- **TypeServerus** (3/6) --> 19/05
 
 ## Nouveautées :
 
