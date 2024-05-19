@@ -14,7 +14,7 @@
         {% for application in applications %}
             <li>
                 <h3>{{ application.name }}</h3>
-                <img src="/admin_serv/{{application.logo.url}}" alt="{{ application.name }}">
+                <img src="{{ application.logo.url}}" alt="{{ application.name }}">
                 <p>{{application.logo.url}}</p>
                 <p>Créé par: {{ application.user.username }}</p>
                 <a href="{% url 'update_application' application.id %}">Modifier</a>
