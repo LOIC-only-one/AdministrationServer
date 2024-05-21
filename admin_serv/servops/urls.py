@@ -24,6 +24,13 @@ urlpatterns = [
     #path('servers/delete/', views.DeleteServerView, name='delete_server'),
     #path('servers/<int:id>/', views.AfficheServerView, name="affiche_server"),
     
+    ## CRUD SERVICES
+    #path('service/read/>/', views.ReadServiceView, name='read_server'),
+    #path('service/update/<int:pk>/', views.UpdateSerciceView, name='update_server'),
+    #path('service/delete/', views.DeleteServiceView, name='delete_server'),
+    #path('service/<int:id>/', views.AfficheServiceView, name="affiche_server"),
+    
+    
     ## CRUD USERS
     path('users/create/', views.CreateUsersView, name='create_users'),
     path('users/delete/', views.DeleteUsersView, name='delete_users'),
