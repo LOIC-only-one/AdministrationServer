@@ -1,14 +1,26 @@
-html, body {
+/* Reset CSS */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+html, body {
+    width: 100%;
+    height: 100%;
     font-family: Arial, sans-serif;
 }
 
 header {
     background-color: #333;
     color: #fff;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
+}
+
+header h1 {
+    font-size: 2em;
 }
 
 nav ul {
@@ -58,48 +70,71 @@ nav ul li a:hover {
     text-decoration: none;
     color: #333;
 }
+
 main {
     margin-left: 210px;
     padding: 10px;
-
 }
-
 
 footer {
     background-color: #333;
     color: #fff;
     text-align: center;
-    padding: 10px;
+    padding: 30px;
     position: relative;
     bottom: 0;
     width: 100%;
 }
 
-.table-user {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table-user th {
-    background-color: rgb(82, 79, 79);
-    color: #fff;
-    padding: 2%;
-}
-
 main p, main h1, main h2, main h3, a {
     font-size: 1em;
-    margin-left:20px;
+    margin-left: 20px;
 }
 
+
 .header-banner {
+    background-image: url("https://img.freepik.com/premium-photo/3d-render-atmospheric-cyberpunk-server-room_739292-462.jpg");
+    background-size: cover;
+    background-position: center;
     width: 100%;
-    height: auto;
+    height: 100vh;
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
     text-align: center;
+    font-size: 1.2em;
+    gap: 20px;
+}
+
+.header-banner button {
+    background-color: #ff6347;
+    color: #fff;
+    z-index: 1;
+    border: none;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5em;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.header-banner button:hover {
+    background-color: #555;
+}
+
+.header-banner h2 {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding: 20px;
 }
 
 .header-banner::after {
@@ -119,7 +154,64 @@ main p, main h1, main h2, main h3, a {
     padding: 20px;
 }
 
+#titre-dashboard {
+    margin-top: 2%;
+}
+
+.content-home {
+    margin-top: 2%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.content-home h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.content-home p {
+    font-size: 1.2em;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.content-home ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.content-home ul li {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+
+
+
+
+
+
+/* Style pour les formulaires */
+
+
+/* Style pour les crud */
+
+/* CRUD Utilisateurs */
+.table-user {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-user th {
+    background-color: rgb(82, 79, 79);
+    color: #fff;
+    padding: 2%;
+}
+
+/* CRUD Applications */
 .image-upload {
     height: 100px;
-    width: 100px;   
+    width: 100px;
 }

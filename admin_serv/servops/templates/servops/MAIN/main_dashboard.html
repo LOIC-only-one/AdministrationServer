@@ -17,7 +17,7 @@
                 <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
             </ul>
         </nav>
-        <h1>{% block header %}{% endblock header %}</h1>
+        <h1 id="titre-dashboard">{% block header %}{% endblock header %}</h1>
     </header>
     <aside class="bar">    
         <ul>
@@ -29,9 +29,5 @@
         {% block content %}
         {% endblock content %}
     </main>
-
-    <footer>
-        <p>&copy; {{ year }} ServOps - SAE Projet informatique</p>
-    </footer>
 </body>
 </html>
