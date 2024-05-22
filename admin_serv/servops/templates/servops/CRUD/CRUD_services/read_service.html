@@ -1,0 +1,13 @@
+{% extends 'servops/MAIN/main_dashboard.html' %}
+
+{% block title %}Mon Dashboard - See Services{% endblock %}
+
+{% block header %}Récuperation - ID{% endblock %}
+{% block content %}
+    <p>Action : Read</p>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Lire</button>
+    </form>
+{% endblock %}

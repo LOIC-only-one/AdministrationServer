@@ -1,0 +1,15 @@
+{% extends 'servops/MAIN/main_dashboard.html' %}
+
+{% block title %}Mon Dashboard - Informations Services{% endblock %}
+
+{% block header %}Récuperation - ID{% endblock %}
+{% block content %}
+    <h2>Informations sur services</h2>
+    <p>Voici les informations du services {{ service.id }} :</p>
+    <ul>
+        <li><p>{{service.name}}</p></li>
+        <li><p>{{service.description}}</p></li>
+        <li><p>{{service.price}}</p></li>
+        <li><p>{{service.server_type}}</p></li>
+    </ul>
+{% endblock %}

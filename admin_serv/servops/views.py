@@ -19,7 +19,7 @@ def servers(request):
     return render(request,'servops/CRUD/CRUD_serveurs/home.html')
 
 def services(request):
-    return render(request, 'servops/CURD/CRUD_services/home.html')
+    return render(request, 'servops/CRUD/CRUD_services/home.html')
     
 def server_types(request):
     return render(request, 'servops/CRUD/CRUD_type_serveurs/home.html')
@@ -140,6 +140,43 @@ def ReadServerTypeView(request):
 def AfficheServerTypeView(request, id):
     server_type = ServerType.objects.get(id=id)
     return render(request, 'servops/CRUD/CRUD_type_serveurs/affiche_type.html', {'server_type': server_type})
+
+
+
+## CRUD Services
+## Attention, il manque la vue pour l'update + Lien avec le serveur pour savoir si il a assez de ressources
+
+def ReadServiceView(request):
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('affiche_service', id=id)
+    return render(request, 'servops/CRUD/CRUD_services/read_service.html', {'form': form})
+
+def DeleteServiceView(request):
+    form = GetIDForm(request.POST or None)
+    if form.is_valid():
+        id = form.cleaned_data.get('id')
+        obj = Service.objects.get(id=id)
+        obj.delete()
+        return redirect('services_crud')
+    return render(request, 'servops/CRUD/CRUD_services/delete.html', {'form': form})
+
+def AfficheServiceView(request, id):
+    service = Service.objects.get(id=id)
+    return render(request, 'servops/CRUD/CRUD_services/affiche_service.html', {'service': service})
+
+def CreateServiceView(request):
+    if request.method == "POST":
+        form = ServiceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('services_crud')
+    else:
+        form = ServiceForm()
+    return render(request, 'servops/CRUD/CRUD_services/create_service.html', {'form': form})
+
+
 
 ## Generation du rapport en PDF
 def pdf(request):

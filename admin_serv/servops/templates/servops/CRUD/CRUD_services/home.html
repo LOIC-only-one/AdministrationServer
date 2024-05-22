@@ -1,0 +1,20 @@
+{% extends "servops/MAIN/main_dashboard.html" %}
+{% load static %}
+
+{% block title %}Gestion - Services{% endblock %}
+
+{% block header %}Actions - Disponible{% endblock %}
+
+{% block sidebar %}
+<ul>
+    <li><a href="{% url 'dashboard' %}" class="button">Dashboard</a></li>
+    <li><a href="{% url 'create_service' %}" class="button">Créer</a></li>
+    <li><a href="{% url 'delete_service' %}" class="button">Supprimer</a></li>
+    <li><a href="{% url 'read_service' %}" class="button">Chercher</a></li>
+    <li><a href="#" class="button">Mettre à jour</a></li>
+</ul>
+{% endblock sidebar %}
+
+{% block content %}
+<p>Liste des services</p>
+{% endblock content %}

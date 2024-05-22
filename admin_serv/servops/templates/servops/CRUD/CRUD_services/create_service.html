@@ -1,0 +1,23 @@
+{% extends "servops/MAIN/main_dashboard.html" %}
+{% load static %}
+
+{% block title %}Gestion - Ajout de services{% endblock %}
+
+{% block header %}Actions - Disponible{% endblock %}
+
+{% block sidebar %}
+<ul>
+    <li><a href="{% url 'dashboard' %}" class="button">Dashboard</a></li>
+    <li><a href="{% url 'services_crud' %}" class="button">Services</a></li>
+</ul>
+{% endblock sidebar %}
+
+{% block content %}
+<h2>Créer un services :</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Créer</button>
+</form>
+
+{% endblock content %}

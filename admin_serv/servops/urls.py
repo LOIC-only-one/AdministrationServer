@@ -10,7 +10,7 @@ urlpatterns = [
     ## CRUD ROOT 
     path('applications/', views.applications, name='applications_crud'),
     path('servers/', views.servers, name='servers_crud'),
-    path('services/', views.services, name='services_crud'),
+    path('service/', views.services, name='services_crud'),
     path('server_types/', views.server_types, name='server_types_crud'),
     path('users/', views.users, name='users_crud'),
 
@@ -25,10 +25,11 @@ urlpatterns = [
     #path('servers/<int:id>/', views.AfficheServerView, name="affiche_server"),
     
     ## CRUD SERVICES
-    #path('service/read/>/', views.ReadServiceView, name='read_server'),
+    path('service/create/', views.CreateServiceView, name='create_service'),
+    path('service/read/>/', views.ReadServiceView, name='read_service'),
     #path('service/update/<int:pk>/', views.UpdateSerciceView, name='update_server'),
-    #path('service/delete/', views.DeleteServiceView, name='delete_server'),
-    #path('service/<int:id>/', views.AfficheServiceView, name="affiche_server"),
+    path('service/delete/', views.DeleteServiceView, name='delete_service'),
+    path('service/<int:id>/', views.AfficheServiceView, name="affiche_service"),
     
     
     ## CRUD USERS

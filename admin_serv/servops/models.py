@@ -33,5 +33,7 @@ class Application(models.Model):
     services = models.ManyToManyField(Service, related_name='applications')
     
 class ResourceUsage(models.Model):
+    ## Pas de update + Affichage sur la page des applications
     application = models.ForeignKey(Application, on_delete=models.CASCADE, related_name='resource_usages')
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='resource_usages')
+
