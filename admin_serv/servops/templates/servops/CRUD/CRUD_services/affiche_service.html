@@ -3,6 +3,15 @@
 {% block title %}Mon Dashboard - Informations Services{% endblock %}
 
 {% block header %}Récuperation - ID{% endblock %}
+
+{% block sidebar %}
+    <ul>
+        <li><a href="{% url 'index' %}">Accueil</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'services_crud' %}">Services</a></li>
+    </ul>
+{% endblock %}
+
 {% block content %}
     <h2>Informations sur services</h2>
     <p>Voici les informations du services {{ service.id }} :</p>
