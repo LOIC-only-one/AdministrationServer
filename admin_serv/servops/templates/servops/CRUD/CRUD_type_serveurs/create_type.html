@@ -6,11 +6,12 @@
 {% block header %}Actions - Disponible{% endblock %}
 
 {% block sidebar %}
-<ul>
-    <li><a href="{% url 'dashboard' %}" class="button">Dashboard</a></li>
-    <li><a href="{% url 'server_types_crud' %}" class="button">Serveurs Types</a></li>
-</ul>
-{% endblock sidebar %}
+    <ul>
+        <li><a href="{% url 'index' %}">Accueil</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'server_types_crud' %}">Types Serveurs</a></li>
+    </ul>
+{% endblock %}
 
 {% block content %}
 <h2>Créer un type de serveur :</h2>
