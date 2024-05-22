@@ -16,5 +16,25 @@
 {% endblock sidebar %}
 
 {% block content %}
-<p>Liste des services</p>
+<h2>Services</h2>
+<p>Voici la liste des services :</p>
+<ul>
+    {% for service in services %}
+    <li><p>{{service.id}}</p></li>
+    <li><p>{{service.name}}</p></li>
+    <li><p>{{service.launch_date}}</p></li>
+    <li><p>{{service.memory_used}}</p></li>
+    <li><p>{{service.required_memory}}</p></li>
+
+    <p>Liste des serveurs qui lance le service :</p>
+    <ul>
+        {% for server in service.server.all %}
+        <li><p>{{server.name}}</p></li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+
+
+<h2>Télécharger un rapport complet des services :</h2>
+<button><a href="{% url 'pdf' %}"></a></button>
 {% endblock content %}
