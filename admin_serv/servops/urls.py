@@ -50,4 +50,11 @@ urlpatterns = [
     path('applications/create/', views.create_application, name='create_application'),
     path('applications/update/<int:application_id>/', views.update_application, name='update_application'),
     path('applications/delete/<int:application_id>/', views.delete_application, name='delete_application'),
+
+    ## CRUD RESOURCE USAGE
+    #path('resource_usage/home/', views.resource_usage_home, name='resource_usage_home'),
+    #path('resource_usage/create/', views.create_resource_usage, name='create_resource_usage'),
+    #path('resource_usage/update/<int:resource_usage_id>/', views.update_resource_usage, name='update_resource_usage'),
+    #path('resource_usage/delete/<int:resource_usage_id>/', views.delete_resource_usage, name='delete_resource_usage'),
+    
 ]
