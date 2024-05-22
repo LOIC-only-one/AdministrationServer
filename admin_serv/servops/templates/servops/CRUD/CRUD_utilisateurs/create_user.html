@@ -4,12 +4,12 @@
 {% block header %}Créer un nouvel utilisateur{% endblock %}
 
 {% block sidebar %}
-<ul>
-    <li><a href="#" class="button">Accueil</a></li>
-    <li><a href="#" class="button">Supprimer</a></li>
-    <li><a href="#" class="button">Mettre à jour</a></li>
-</ul>
-{% endblock sidebar %}
+    <ul>
+        <li><a href="{% url 'index' %}">Accueil</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'users_crud' %}">Utilisateurs</a></li>
+    </ul>
+{% endblock %}
 
 {% block content %}
 <h2>Créer un nouvel utilisateur</h2>

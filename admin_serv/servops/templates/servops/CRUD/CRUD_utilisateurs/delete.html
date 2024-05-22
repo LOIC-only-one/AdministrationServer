@@ -1,8 +1,16 @@
 {% extends 'servops/MAIN/main_dashboard.html' %}
 
 {% block title %}Mon Dashboard - ID{% endblock %}
-
 {% block header %}Récuperation - ID{% endblock %}
+
+{% block sidebar %}
+    <ul>
+        <li><a href="{% url 'index' %}">Accueil</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'users_crud' %}">Utilisateurs</a></li>
+    </ul>
+{% endblock %}
+
 {% block content %}
     <p>Action : Delete</p>
     <form method="POST">

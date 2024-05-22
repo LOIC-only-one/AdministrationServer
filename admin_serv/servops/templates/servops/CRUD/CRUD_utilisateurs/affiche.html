@@ -3,6 +3,15 @@
 {% block title %}Mon Dashboard - Information utilisateur{% endblock %}
 
 {% block header %}Récuperation - ID{% endblock %}
+
+{% block sidebar %}
+    <ul>
+        <li><a href="{% url 'index' %}">Accueil</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'users_crud' %}">Utilisateurs</a></li>
+    </ul>
+{% endblock %}
+
 {% block content %}
     <h2>Informations de l'utilisateur</h2>
     <p>Nom d'utilisateur : {{ user.first_name }}</p>
