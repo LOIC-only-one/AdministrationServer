@@ -10,7 +10,8 @@ def index(request):
     return render(request, 'servops/home.html')
 
 def dashboard(request):
-    return render(request, 'servops/dashboard.html')
+    servers = Server.objects.all()
+    return render(request, 'servops/dashboard.html', {'servers': servers})
 
 def applications(request):
     return render(request, 'servops/CURD/CRUD_applications/home.html')

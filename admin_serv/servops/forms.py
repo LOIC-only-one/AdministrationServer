@@ -35,7 +35,7 @@ class ServiceForm(forms.ModelForm):
     memory_used = forms.IntegerField(label='Espace mémoire utilisé')
     required_memory = forms.IntegerField(label='Mémoire vive nécessaire')
     launch_server = forms.ModelChoiceField(queryset=Server.objects.all(), label='Serveur de lancement')
-
+        
     class Meta:
         model = Service
         fields = ['name', 'launch_date', 'memory_used', 'required_memory', 'launch_server']

@@ -5,6 +5,12 @@
 {% block header %}Mon Pannel d'Administration{% endblock %}
 {% block content %}
     <p>Bienvenue sur mon pannel d'administration !</p>
+
+    <h1>Voici la liste des serveurs :</h1>
+    <ul>
+        {% for server in servers %}
+            <li>{{ server.name }}</li>
+        {% endfor %}
 {% endblock %}       
 
 {% block sidebar %}

@@ -3,6 +3,9 @@ from django.db import models
 class ServerType(models.Model):
     type = models.CharField(max_length=200)
     description = models.TextField()
+    
+    def __str__(self):
+        return self.type
 
 class Server(models.Model):
     name = models.CharField(max_length=200)
@@ -10,7 +13,11 @@ class Server(models.Model):
     num_processors = models.IntegerField()
     memory_capacity = models.IntegerField()
     storage_capacity = models.IntegerField()
-
+    
+    def __str__(self):
+        return self.name
+    
+    
 class Service(models.Model):
     name = models.CharField(max_length=200)
     launch_date = models.DateField()
