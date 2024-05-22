@@ -78,6 +78,24 @@ def AfficheUsersView(request, id):
     return render(request, 'servops/CRUD/CRUD_utilisateurs/affiche.html', {'user': user})
 
 
+def UpdateUsersView(request):
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('update_users', id=id)
+    return render(request, 'servops/CRUD/CRUD_utilisateurs/update_user.html', {'form': form})
+
+def UpdateUsersViewModificate(request, id):
+    user = ServUser.objects.get(id=id)
+    if request.method == "POST":
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('users_crud')
+    else:
+        form = UserForm(instance=user)
+    return render(request, 'servops/CRUD/CRUD_utilisateurs/update_user.html', {'form': form})
+
 
 ## CRUD_Applications
 def applications_home(request):
@@ -143,7 +161,23 @@ def AfficheServerTypeView(request, id):
     server_type = ServerType.objects.get(id=id)
     return render(request, 'servops/CRUD/CRUD_type_serveurs/affiche_type.html', {'server_type': server_type})
 
+def UpdateServerTypeView(request):
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('update_server_type', id=id)
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/update_type.html', {'form': form})
 
+def UpdateServerTypeViewModificate(request, id):
+    server_type = ServerType.objects.get(id=id)
+    if request.method == "POST":
+        form = ServerTypeForm(request.POST, instance=server_type)
+        if form.is_valid():
+            form.save()
+            return redirect('server_types_crud')
+    else:
+        form = ServerTypeForm(instance=server_type)
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/update_type.html', {'form': form})
 
 ## CRUD Services
 ## Attention, il manque la vue pour l'update + Lien avec le serveur pour savoir si il a assez de ressources

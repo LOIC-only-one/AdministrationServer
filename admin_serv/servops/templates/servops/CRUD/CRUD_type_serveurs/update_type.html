@@ -1,0 +1,16 @@
+{% extends "servops/MAIN/main_dashboard.html" %}
+
+{% block title %}Mettre à jour{% endblock %}
+
+{% block header %}Mise à jour{% endblock %}
+
+{% block content %}
+    <p>Action : update</p>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Mettre à jour</button>
+    </form>
+{% endblock %}
+
+
