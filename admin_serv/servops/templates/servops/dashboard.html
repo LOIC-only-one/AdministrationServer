@@ -4,13 +4,14 @@
 
 {% block header %}Mon Pannel d'Administration{% endblock %}
 {% block content %}
-    <p>Bienvenue sur mon pannel d'administration !</p>
-
-    <h1>Voici la liste des serveurs :</h1>
-    <ul>
-        {% for server in servers %}
-            <li>{{ server.name }}</li>
-        {% endfor %}
+<h2>Liste des Serveurs</h2>
+<div class="container">
+    {% for server in servers %}
+    <div class="service-box">
+        <p>{{ server.name }}</p>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}       
 
 {% block sidebar %}
@@ -20,5 +21,4 @@
     <li><a href="{% url 'services_crud' %}">Services</a></li>
     <li><a href="{% url 'server_types_crud' %}">Types de Serveurs</a></li>
     <li><a href="{% url 'users_crud'%}">Utilisateurs</a></li>
-
 {% endblock %}

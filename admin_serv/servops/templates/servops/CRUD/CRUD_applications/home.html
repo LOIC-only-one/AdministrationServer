@@ -9,21 +9,21 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Liste des Applications</h2>
-    <ul>
-        {% for application in applications %}
-            <li>
-                <h3>{{ application.name }}</h3>
-                <img src="{{ application.logo.url }}" alt="{{ application.name }}" class="image-upload">
-                <p>{{application.logo}}</p>
-                <p>Créé par: {{ application.user }}</p>
-                <a href="{% url 'update_application' application.id %}">Modifier</a>
-                <form action="{% url 'delete_application' application.id %}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Supprimer">
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'create_application' %}">Ajouter une nouvelle application</a>
+<h2>Liste des Applications</h2>
+<div class="container">
+    {% for application in applications %}
+    <div class="service-box">
+        <h3>{{ application.name }}</h3>
+        <img src="{{ application.logo.url }}" alt="{{ application.name }}" class="image-upload">
+        <p>{{application.logo}}</p>
+        <p>Créé par: {{ application.user }}</p>
+        <a href="{% url 'update_application' application.id %}">Modifier</a>
+        <form action="{% url 'delete_application' application.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Supprimer">
+        </form>
+    </div>
+    {% endfor %}
+</div>
+<a href="{% url 'create_application' %}">Ajouter une nouvelle application</a>
 {% endblock %}

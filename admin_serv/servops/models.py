@@ -9,7 +9,7 @@ class ServerType(models.Model):
 
 class Server(models.Model):
     name = models.CharField(max_length=200)
-    server_type = models.ForeignKey(ServerType, on_delete=models.CASCADE, related_name='servers')
+    server_type = models.ForeignKey(ServerType, on_delete=models.CASCADE)
     num_processors = models.IntegerField()
     memory_capacity = models.IntegerField()
     storage_capacity = models.IntegerField()
@@ -25,6 +25,7 @@ class Service(models.Model):
     required_memory = models.IntegerField()
     launch_server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='services')
 
+
 class ServUser(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -38,7 +39,8 @@ class Application(models.Model):
     logo = models.ImageField(upload_to='logos/')
     user = models.ForeignKey(ServUser, on_delete=models.CASCADE, related_name='applications')
     services = models.ManyToManyField(Service, related_name='applications')
-    
+    launch_server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='applications')
+
 class ResourceUsage(models.Model):
     ## Pas de update + Affichage sur la page des applications
     application = models.ForeignKey(Application, on_delete=models.CASCADE, related_name='resource_usages')

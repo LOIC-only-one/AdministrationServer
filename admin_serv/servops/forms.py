@@ -39,15 +39,17 @@ class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = ['name', 'launch_date', 'memory_used', 'required_memory', 'launch_server']
-
+        
 class ApplicationForm(forms.ModelForm):
     name = forms.CharField(label='Nom de l\'application')
     logo = forms.ImageField(label='Logo')
     user = forms.ModelChoiceField(queryset=ServUser.objects.all(), label='Utilisateur')
+    launch_server = forms.ModelChoiceField(queryset=Server.objects.all(), label='Serveur de lancement')
+    services = forms.ModelMultipleChoiceField(queryset=Service.objects.all(), label='Services')
 
     class Meta:
         model = Application
-        fields = ['name', 'logo', 'user']
+        fields = ['name', 'logo', 'user', 'launch_server', 'services']
 
 class ResourceUsageForm(forms.ModelForm):
     application = forms.ModelChoiceField(queryset=Application.objects.all(), label='Application')

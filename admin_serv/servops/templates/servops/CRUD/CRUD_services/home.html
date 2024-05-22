@@ -18,21 +18,24 @@
 {% block content %}
 <h2>Services</h2>
 <p>Voici la liste des services :</p>
-<ul>
+<div class="container">
     {% for service in services %}
-    <li><p>{{service.id}}</p></li>
-    <li><p>{{service.name}}</p></li>
-    <li><p>{{service.launch_date}}</p></li>
-    <li><p>{{service.memory_used}}</p></li>
-    <li><p>{{service.required_memory}}</p></li>
+    <div class="service-box">
+        <p>ID : {{service.id}}</p>
+        <p>Nom : {{service.name}}</p>
+        <p>Date de lancement : {{service.launch_date}}</p>
+        <p>Mémoire utilisée : {{service.memory_used}}</p>
+        <p>Mémoire requise : {{service.required_memory}}</p>
 
-    <p>Liste des serveurs qui lance le service :</p>
-    <ul>
-        {% for server in service.server.all %}
-        <li><p>{{server.name}}</p></li>
-        {% endfor %}
-    </ul>
+        <p>Liste des serveurs qui lancent le service :</p>
+        <ul>
+            {% for server in service.server.all %}
+            <li><p>{{server.name}}</p></li>
+            {% endfor %}
+        </ul>
+    </div>
     {% endfor %}
+</div>
 
 
 <h2>Télécharger un rapport complet des services :</h2>

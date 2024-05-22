@@ -12,6 +12,10 @@ html, body {
     font-family: Arial, sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 header {
     background-color: #333;
     color: #fff;
@@ -122,13 +126,6 @@ input {
     border: 1px solid #ccc;
 }
 
-input[type="submit"] {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
 
 .header-banner {
     background-image: url("https://img.freepik.com/premium-photo/3d-render-atmospheric-cyberpunk-server-room_739292-462.jpg");
@@ -145,11 +142,6 @@ input[type="submit"] {
     text-align: center;
     font-size: 1.2em;
     gap: 20px;
-}
-
-
-.header-banner button:hover {
-    background-color: #555;
 }
 
 .header-banner h2 {
@@ -218,6 +210,28 @@ input[type="submit"] {
 
 
 /* Style pour les crud */
+/* Style global pour crud */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.service-box {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+    flex: 0 0 calc(33.33% - 20px);
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .service-box {
+        flex: 0 0 100%;
+    }
+}
+
 
 /* CRUD Utilisateurs */
 .table-user {

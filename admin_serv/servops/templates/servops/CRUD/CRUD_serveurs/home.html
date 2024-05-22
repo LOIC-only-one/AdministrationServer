@@ -3,32 +3,20 @@
 
 {% block content %}
 <h2>Liste des serveurs</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Type</th>
-            <th>Nombre de processeurs</th>
-            <th>Capacité mémoire</th>
-            <th>Capacité de stockage</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for server in servers %}
-        <tr>
-            <td>{{ server.name }}</td>
-            <td>{{ server.server_type.type }}</td>
-            <td>{{ server.num_processors }}</td>
-            <td>{{ server.memory_capacity }} Mo</td>
-            <td>{{ server.storage_capacity }} Go</td>
-            <td>
-                <a href="{% url 'update_server' server.id %}">Modifier</a>
-                <a href="{% url 'delete_server' server.id %}">Supprimer</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+    {% for server in servers %}
+    <div class="service-box">
+        <p>Nom : {{ server.name }}</p>
+        <p>Type : {{ server.server_type.type }}</p>
+        <p>Nombre de processeurs : {{ server.num_processors }}</p>
+        <p>Capacité de mémoire : {{ server.memory_capacity }} Mo</p>
+        <p>Capacité de stockage : {{ server.storage_capacity }} Go</p>
+        <p>
+            <a href="{% url 'update_server' server.id %}">Modifier</a>
+            <a href="{% url 'delete_server' server.id %}">Supprimer</a>
+        </p>
+    </div>
+    {% endfor %}
+</div>
 <a href="{% url 'create_server' %}">Ajouter un nouveau serveur</a>
-{% endblock %}
+{% endblock content %}
