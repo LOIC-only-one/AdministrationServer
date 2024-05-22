@@ -1,0 +1,11 @@
+{% extends 'servops/MAIN/main_dashboard.html' %}
+{% block title %}Supprimer Serveur{% endblock %}
+
+{% block content %}
+<h2>Supprimer un serveur</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Supprimer</button>
+</form>
+{% endblock %}
