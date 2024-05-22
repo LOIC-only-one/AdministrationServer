@@ -213,6 +213,52 @@ def CreateServiceView(request):
     return render(request, 'servops/CRUD/CRUD_services/create_service.html', {'form': form})
 
 
+## CRUD Serveur
+
+def servers(request):
+    servers = Server.objects.all()
+    return render(request, 'servops/CRUD/CRUD_serveurs/home.html', {'servers': servers})
+
+def CreateServerView(request):
+    if request.method == "POST":
+        form = ServerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('servers_crud')
+    else:
+        form = ServerForm()
+    return render(request, 'servops/CRUD/CRUD_serveurs/create_serveur.html', {'form': form})
+
+def ReadServerView(request):
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('read_server', id=id)
+    return render(request, 'servops/CRUD/CRUD_serveurs/read_server.html', {'form': form})
+
+def AfficheServerView(request, id):
+    server = get_object_or_404(Server, id=id)
+    return render(request, 'servops/CRUD/CRUD_serveurs/read_server.html', {'server': server})
+
+def UpdateServerView(request, id):
+    server = get_object_or_404(Server, id=id)
+    if request.method == "POST":
+        form = ServerForm(request.POST, instance=server)
+        if form.is_valid():
+            form.save()
+            return redirect('servers_crud')
+    else:
+        form = ServerForm(instance=server)
+    return render(request, 'servops/CRUD/CRUD_serveurs/update_serveur.html', {'form': form})
+
+def DeleteServerView(request, id):
+    server = get_object_or_404(Server, id=id)
+    if request.method == "POST":
+        server.delete()
+        return redirect('servers_crud')
+    return render(request, 'servops/CRUD/CRUD_serveurs/delete_serveur.html', {'server': server})
+
+
 
 ## Generation du rapport en PDF
 def pdf(request):
