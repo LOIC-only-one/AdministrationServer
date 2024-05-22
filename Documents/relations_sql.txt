@@ -1,0 +1,51 @@
+CREATE TABLE ServerType (
+    id SERIAL PRIMARY KEY,
+    type VARCHAR(200) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE Server (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    server_type_id INTEGER NOT NULL REFERENCES ServerType(id) ON DELETE CASCADE,
+    num_processors INTEGER NOT NULL,
+    memory_capacity INTEGER NOT NULL,
+    storage_capacity INTEGER NOT NULL
+);
+
+CREATE TABLE Service (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    launch_date DATE NOT NULL,
+    memory_used INTEGER NOT NULL,
+    required_memory INTEGER NOT NULL,
+    launch_server_id INTEGER NOT NULL REFERENCES Server(id) ON DELETE CASCADE
+);
+
+CREATE TABLE ServUser (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(254) NOT NULL UNIQUE
+);
+
+CREATE TABLE Application (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    logo VARCHAR(100),
+    user_id INTEGER NOT NULL REFERENCES ServUser(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Application_services (
+    id SERIAL PRIMARY KEY,
+    application_id INTEGER NOT NULL REFERENCES Application(id) ON DELETE CASCADE,
+    service_id INTEGER NOT NULL REFERENCES Service(id) ON DELETE CASCADE,
+    UNIQUE (application_id, service_id)
+);
+
+CREATE TABLE ResourceUsage (
+    id SERIAL PRIMARY KEY,
+    application_id INTEGER NOT NULL REFERENCES Application(id) ON DELETE CASCADE,
+    service_id INTEGER NOT NULL REFERENCES Service(id) ON DELETE CASCADE,
+    UNIQUE (application_id, service_id)
+);

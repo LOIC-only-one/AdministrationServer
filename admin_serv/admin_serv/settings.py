@@ -81,6 +81,22 @@ DATABASES = {
     }
 }
 
+"""
+
+--> A ajouter quand on fera la liaison avec la base de données
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',  # ou mysql, sqlite3, etc.
+        'NAME': 'nom_de_votre_base_de_donnees',
+        'USER': 'nom_utilisateur',
+        'PASSWORD': 'mot_de_passe',
+        'HOST': 'adresse_du_serveur',
+        'PORT': 'port',  # généralement 5432 pour postgresql, 3306 pour mysql
+    }
+}
+"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
