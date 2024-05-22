@@ -19,10 +19,10 @@ urlpatterns = [
 
     ## CRUD SERVEURS
     path('servers/create/', views.CreateServerView, name='create_server'),
-    #path('servers/read/>/', views.ReadServerView, name='read_server'),
-    #path('servers/update/<int:pk>/', views.UpdateServerView, name='update_server'),
-    #path('servers/delete/', views.DeleteServerView, name='delete_server'),
-    #path('servers/<int:id>/', views.AfficheServerView, name="affiche_server"),
+    path('servers/read/<int:id>/', views.ReadServerView, name='read_server'),
+    path('servers/update/<int:id>/', views.UpdateServerView, name='update_server'),
+    path('servers/delete/<int:id>/', views.DeleteServerView, name='delete_server'),
+    path('servers/', views.servers, name='servers_list'),
     
     ## CRUD SERVICES
     path('service/create/', views.CreateServiceView, name='create_service'),
