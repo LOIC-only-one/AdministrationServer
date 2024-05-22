@@ -91,6 +91,21 @@ main p, main h1, main h2, main h3, a {
     margin-left: 20px;
 }
 
+input {
+    width: 60%;
+    height: 100px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
 
 .header-banner {
     background-image: url("https://img.freepik.com/premium-photo/3d-render-atmospheric-cyberpunk-server-room_739292-462.jpg");
@@ -109,7 +124,7 @@ main p, main h1, main h2, main h3, a {
     gap: 20px;
 }
 
-.header-banner button {
+.header-banner button    {
     background-color: #ff6347;
     color: #fff;
     z-index: 1;
@@ -186,7 +201,6 @@ main p, main h1, main h2, main h3, a {
     margin-bottom: 10px;
     font-size: 1.2em;
 }
-
 
 
 

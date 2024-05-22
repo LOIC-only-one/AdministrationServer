@@ -22,7 +22,8 @@ def services(request):
     return render(request, 'servops/CRUD/CRUD_services/home.html')
     
 def server_types(request):
-    return render(request, 'servops/CRUD/CRUD_type_serveurs/home.html')
+    server_types = ServerType.objects.all()
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/home.html', {'server_types': server_types} )
     
 def users(request):
     users = ServUser.objects.all()

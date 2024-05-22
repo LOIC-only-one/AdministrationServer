@@ -16,5 +16,11 @@
 {% endblock sidebar %}
 
 {% block content %}
-<p>Liste des types de serveurs</p>
+<h2> Liste des types de serveurs </h2>
+<table class="table-user">
+    <tr> <th>ID</th> <th>Type</th> <th>Description</th> </tr>
+{% for server_type in server_types %}
+    <tr> <th>{{server_type.id}}</th> <th>{{server_type.type}}</th> <th>{{server_type.description}}</th></tr>
+{% endfor %}
+</table>
 {% endblock content %}
