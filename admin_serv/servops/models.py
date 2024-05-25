@@ -25,6 +25,8 @@ class Service(models.Model):
     required_memory = models.IntegerField()
     launch_server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='services')
 
+    def __str__(self):
+        return self.name
 
 class ServUser(models.Model):
     first_name = models.CharField(max_length=100)
@@ -40,6 +42,9 @@ class Application(models.Model):
     user = models.ForeignKey(ServUser, on_delete=models.CASCADE, related_name='applications')
     services = models.ManyToManyField(Service, related_name='applications')
     launch_server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='applications')
+
+    def __str__(self):
+        return self.name
 
 class ResourceUsage(models.Model):
     ## Pas de update + Affichage sur la page des applications
