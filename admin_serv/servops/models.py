@@ -35,6 +35,9 @@ class Service(models.Model):
     memory_used = models.IntegerField()
     required_memory = models.IntegerField()
     launch_server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='services')
+    
+    def __str__(self):
+        return self.name
 
 
 class ServUser(models.Model):

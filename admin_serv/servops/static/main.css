@@ -167,8 +167,15 @@ main p, main h1, main h2, main h3, a {
     font-size: 1.2em;
 }
 
+.active {
+    color: #007bff;
+    text-decoration: none;
+    transition: text-decoration 0.3s, color 0.3s; /* Smooth transition */
+}
 
-
+.active:hover, .active:focus {
+    text-decoration: underline;
+}
 
 
 

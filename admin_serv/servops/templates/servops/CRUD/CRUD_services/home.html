@@ -29,7 +29,7 @@
 
         <p>Liste des serveurs qui lancent le service :</p>
         <ul>
-            {% for server in service.server.all %}
+            {% for server in servers %}
             <li><p>{{server.name}}</p></li>
             {% endfor %}
         </ul>
