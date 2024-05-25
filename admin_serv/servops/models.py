@@ -15,21 +15,14 @@ class Server(models.Model):
     storage_capacity = models.IntegerField()
     used_storage = models.IntegerField(default=0)  # Espace utilisé en Go
     total_storage = models.IntegerField(default=0)  # Capacité totale de stockage en Go
-
-    @property
-    def remaining_storage(self):
-        return self.total_storage - self.used_storage
-
-    @property
-    def storage_percentage(self):
-        if self.total_storage == 0:
-            return 0
-        return (self.used_storage / self.total_storage) * 100
     
     def __str__(self):
         return self.name
     
 class Service(models.Model):
+    """
+    doit encore faire la verification des ressources disponibles avec le serveur de lancement
+    """
     name = models.CharField(max_length=200)
     launch_date = models.DateField()
     memory_used = models.IntegerField()
@@ -57,5 +50,6 @@ class Application(models.Model):
 
 class ResourceUsage(models.Model):
     ## Pas de update + Affichage sur la page des applications
+    ## Modification des ressources utilisées par une application
     application = models.ForeignKey(Application, on_delete=models.CASCADE, related_name='resource_usages')
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='resource_usages')

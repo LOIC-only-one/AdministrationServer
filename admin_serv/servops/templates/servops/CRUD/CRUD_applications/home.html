@@ -15,8 +15,13 @@
     <div class="service-box">
         <h3>{{ application.name }}</h3>
         <img src="{{ application.logo.url }}" alt="{{ application.name }}" class="image-upload">
-        <p>{{application.logo}}</p>
         <p>Créé par: {{ application.user }}</p>
+        <h3>Services associés :</h3>
+        <ul>
+            {% for service in application.services.all %}
+            <li>{{ service.name }}</li>
+            {% endfor %}
+        </ul>
         <a href="{% url 'update_application' application.id %}">Modifier</a>
         <form action="{% url 'delete_application' application.id %}" method="post">
             {% csrf_token %}
