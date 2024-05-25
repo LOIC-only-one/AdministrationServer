@@ -13,10 +13,21 @@ class Server(models.Model):
     num_processors = models.IntegerField()
     memory_capacity = models.IntegerField()
     storage_capacity = models.IntegerField()
+    used_storage = models.IntegerField(default=0)  # Espace utilisé en Go
+    total_storage = models.IntegerField(default=0)  # Capacité totale de stockage en Go
+
+    @property
+    def remaining_storage(self):
+        return self.total_storage - self.used_storage
+
+    @property
+    def storage_percentage(self):
+        if self.total_storage == 0:
+            return 0
+        return (self.used_storage / self.total_storage) * 100
     
     def __str__(self):
         return self.name
-    
     
 class Service(models.Model):
     name = models.CharField(max_length=200)

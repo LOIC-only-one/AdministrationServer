@@ -26,7 +26,7 @@ urlpatterns = [
     
     ## CRUD SERVICES
     path('service/create/', views.CreateServiceView, name='create_service'),
-    path('service/read/>/', views.ReadServiceView, name='read_service'),
+    path('service/read/', views.ReadServiceView, name='read_service'),
     #path('service/update/<int:pk>/', views.UpdateSerciceView, name='update_server'),
     path('service/delete/', views.DeleteServiceView, name='delete_service'),
     path('service/<int:id>/', views.AfficheServiceView, name="affiche_service"),

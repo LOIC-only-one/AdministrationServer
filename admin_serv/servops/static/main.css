@@ -23,29 +23,6 @@ header {
     text-align: center;
 }
 
-a {
-    background-color: #ff6347;
-    color: #fff;
-    z-index: 1;
-    border: none;
-    padding: 15px 30px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1.5em;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    text-decoration: none;
-}
-
-a:hover {
-    background-color: #555;
-    color: #ffffff;
-}
-
 header h1 {
     font-size: 2em;
 }
@@ -73,6 +50,7 @@ nav ul li a:hover {
     background-color: #555;
     color: #ffffff;
 }
+/* Style pour la side bar */
 
 .bar {
     background-color: #f4f4f4;
@@ -86,16 +64,20 @@ nav ul li a:hover {
 .bar ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
 .bar ul li {
-    padding: 10px;
+    padding: 8px 10px;
     border-bottom: 1px solid #ccc;
+    font-size: 0.9em;
 }
 
 .bar ul li a {
     text-decoration: none;
     color: #333;
+    display: block;
+    padding: 8px 10px;
 }
 
 main {
@@ -118,15 +100,6 @@ main p, main h1, main h2, main h3, a {
     margin-left: 20px;
 }
 
-input {
-    width: 60%;
-    height: 100px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-
 .header-banner {
     background-image: url("https://img.freepik.com/premium-photo/3d-render-atmospheric-cyberpunk-server-room_739292-462.jpg");
     background-size: cover;
@@ -144,7 +117,7 @@ input {
     gap: 20px;
 }
 
-.header-banner h2 {
+.header-banner h1, .header-banner h2 {
     z-index: 1;
     position: relative;
     text-align: center;
@@ -159,13 +132,6 @@ input {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-}
-
-.header-banner h1 {
-    z-index: 1;
-    position: relative;
-    text-align: center;
-    padding: 20px;
 }
 
 #titre-dashboard {
@@ -206,30 +172,60 @@ input {
 
 
 
+
 /* Style pour les formulaires */
-
-
-/* Style pour les crud */
-/* Style global pour crud */
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.service-box {
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
+form {
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
-    margin: 10px;
-    flex: 0 0 calc(33.33% - 20px);
-    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 768px) {
-    .service-box {
-        flex: 0 0 100%;
-    }
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    margin-top: 2%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button a {
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
 
 
@@ -242,11 +238,91 @@ input {
 .table-user th {
     background-color: rgb(82, 79, 79);
     color: #fff;
-    padding: 2%;
+    padding: 10px;
+    text-align: left;
+}
+
+.table-user td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 /* CRUD Applications */
 .image-upload {
     height: 100px;
     width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.image-upload:hover {
+    border-color: #007bff;
+}
+
+.image-upload input {
+    display: none;
+}
+
+/*Dashboard*/
+
+/* Styles pour les serveurs */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.service-box {
+    margin-top: 2%;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-box:hover {
+    transform: translateY(5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.service-box p {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.service-box ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.service-box ul li {
+    margin-bottom: 5px;
+}
+
+.service-box ul li strong {
+    margin-right: 10px;
+    color: #333;
+}
+
+.service-box h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.service-box ul {
+    margin-left: 20px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }

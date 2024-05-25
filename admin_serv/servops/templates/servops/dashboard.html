@@ -3,16 +3,41 @@
 {% block title %}Mon Dashboard{% endblock %}
 
 {% block header %}Mon Pannel d'Administration{% endblock %}
+
 {% block content %}
 <h2>Liste des Serveurs</h2>
 <div class="container">
     {% for server in servers %}
     <div class="service-box">
-        <p>{{ server.name }}</p>
+        <h3>{{ server.name }}</h3>
+        <ul>
+            <li><strong>Type de serveur :</strong> {{ server.server_type }}</li>
+            <li><strong>Nombre de processeurs :</strong> {{ server.num_processors }}</li>
+            <li><strong>Capacité de mémoire :</strong> {{ server.memory_capacity }} GB</li>
+            <li><strong>Capacité de stockage :</strong> {{ server.storage_capacity }} GB</li>
+            <li><strong>Espace de stockage utilisé :</strong> {{ server.used_storage }} GB</li>
+            <li><strong>Espace de stockage restant :</strong> {{ server.remaining_storage }} GB</li>
+            <li><strong>Pourcentage d'espace de stockage utilisé :</strong> {{ server.storage_percentage }}%</li>
+        </ul>
+        
+        <h4>Applications associées :</h4>
+        <ul>
+            {% for application in server.applications.all %}
+            <li>{{ application.name }}</li>
+            {% endfor %}
+        </ul>
+        
+        <h4>Services associés :</h4>
+        <ul>
+            {% for service in server.services.all %}
+            <li>{{ service.name }}</li>
+            {% endfor %}
+        </ul>
     </div>
     {% endfor %}
 </div>
-{% endblock %}       
+{% endblock %}
+
 
 {% block sidebar %}
     <li><a href="{% url 'index'%}">Acceuil</a></li>
