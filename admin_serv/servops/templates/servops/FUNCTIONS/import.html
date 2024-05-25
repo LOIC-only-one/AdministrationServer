@@ -1,0 +1,22 @@
+{% extends 'servops/MAIN/main_dashboard.html' %}
+
+{% block title %}Mon Dashboard{% endblock %}
+
+{% block header %}Mon Pannel d'Administration{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="service-box">
+
+{% endblock %}
+
+
+{% block sidebar %}
+    <li><a href="{% url 'index'%}">Acceuil</a></li>
+    <li><a href="{% url 'applications_home'%}">Applications</a></li>
+    <li><a href="{% url 'servers_crud'%}">Serveurs</a></li>
+    <li><a href="{% url 'services_crud' %}">Services</a></li>
+    <li><a href="{% url 'server_types_crud' %}">Types de Serveurs</a></li>
+    <li><a href="{% url 'users_crud'%}">Utilisateurs</a></li>
+    <li><a href="{% url 'import' %}">Importer</a></li>
+{% endblock %}

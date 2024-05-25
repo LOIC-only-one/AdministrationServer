@@ -16,6 +16,7 @@ urlpatterns = [
 
     ## FONCTIONS
     path('file/', views.pdf, name='pdf'),
+    #path('import/', views.import_data, name='import'),
 
     ## CRUD SERVEURS
     path('servers/create/', views.CreateServerView, name='create_server'),

@@ -4,7 +4,7 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from .models import Server, ServerType, ServUser, Service, Application, ResourceUsage
-from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, ResourceUsageForm, GetIDForm
+from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, ResourceUsageForm, GetIDForm, ImportCSVForm
 
 ## Créations des vues pour les index SR du site
 def index(request):
@@ -286,3 +286,6 @@ def pdf(request):
     p.save()
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename="liste_services.pdf")
+
+## Importation des données via un fichier CSV
+
