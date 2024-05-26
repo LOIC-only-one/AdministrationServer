@@ -34,6 +34,8 @@ def users(request):
     users = ServUser.objects.all()
     return render(request, 'servops/CRUD/CRUD_utilisateurs/home.html', {'users': users})
 
+def import_data_home(request):
+    return render(request, 'servops/FUNCTIONS/import.html')
 
 
 ## CRUD Server

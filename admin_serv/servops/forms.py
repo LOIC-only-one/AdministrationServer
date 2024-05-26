@@ -63,4 +63,5 @@ class GetIDForm(forms.Form):
     id = forms.IntegerField()
     
 class ImportCSVForm(forms.Form):
+    objects = forms.ChoiceField(label="Objet à importer", choices=[('server', 'Serveur'), ('server_type', 'Type de serveur'), ('user', 'Utilisateur'), ('service', 'Service'), ('application', 'Application')])
     csv_file = forms.FileField(label="Importer un fichier CSV")

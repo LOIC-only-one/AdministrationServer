@@ -8,6 +8,33 @@
 <div class="container">
     <div class="service-box">
 
+        <h2>Comment ça fonctionne ?</h2>
+        <p>Vous pouvez importer des données depuis un fichier CSV. Les données doivent être formatées de la manière suivante :</p>
+        <ul>
+            <li>Les colonnes doivent être séparées par des virgules</li>
+            <li>La première ligne doit contenir les noms des colonnes</li>
+            <li>Les colonnes doivent être dans l'ordre suivant : Nom, Type de Serveur, Nombre de Processeurs, Capacité de Mémoire, Capacité de Stockage, Espace de Stockage Utilisé, Applications, Services</li>
+            <li>Les applications et services doivent être séparés par des virgules</li>
+        </ul>
+
+        <h2>Exemple de données</h2>
+        <p>Voici un exemple de données formatées correctement :</p>
+        <pre>
+            Nom,Type de Serveur,Nombre de Processeurs,Capacité de Mémoire,Capacité de Stockage,Espace de Stockage Utilisé,Applications,Services
+            Serveur 1,Type 1,4,16,1000,500,Application 1,Service 1,Service 2
+            Serveur 2,Type 2,8,32,2000,1000,Application 2,Application 3,Service 3   
+        </pre>
+        
+        <h2>Importer des données</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Importer</button>
+        </form>
+
+    </div>
+</div>
+
 {% endblock %}
 
 
