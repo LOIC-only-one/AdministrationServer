@@ -302,3 +302,6 @@ def pdf(request):
     return FileResponse(buffer, as_attachment=True, filename="liste_services.pdf")
 
 ## Importation des données via un fichier CSV
+
+def import_services(request):
+    pass

@@ -117,6 +117,16 @@ main p, main h1, main h2, main h3, a {
     gap: 20px;
 }
 
+.header-banner a {
+    z-index: 1;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
 .header-banner h1, .header-banner h2 {
     z-index: 1;
     position: relative;
