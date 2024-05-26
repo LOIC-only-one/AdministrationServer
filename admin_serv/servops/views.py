@@ -4,7 +4,8 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from .models import Server, ServerType, ServUser, Service, Application, ResourceUsage
-from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, ResourceUsageForm, GetIDForm, ImportCSVForm
+from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, ResourceUsageForm, GetIDForm, UploadForm
+import csv
 
 ## Créations des vues pour les index SR du site
 def index(request):
@@ -35,7 +36,18 @@ def users(request):
     return render(request, 'servops/CRUD/CRUD_utilisateurs/home.html', {'users': users})
 
 def import_data_home(request):
-    return render(request, 'servops/FUNCTIONS/import.html')
+    if request.method == "POST":
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = form.cleaned_data.get('file')
+            with open(file, 'r') as f:
+                reader = csv.reader(f)
+                for row in reader:
+                    print(row)
+            return redirect('index')
+    else:
+        form = UploadForm()
+    return render(request, 'servops/FUNCTIONS/import.html', {'form': form})
 
 
 ## CRUD Server
@@ -290,4 +302,3 @@ def pdf(request):
     return FileResponse(buffer, as_attachment=True, filename="liste_services.pdf")
 
 ## Importation des données via un fichier CSV
-

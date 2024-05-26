@@ -13,25 +13,27 @@
         <ul>
             <li>Les colonnes doivent être séparées par des virgules</li>
             <li>La première ligne doit contenir les noms des colonnes</li>
-            <li>Les colonnes doivent être dans l'ordre suivant : Nom, Type de Serveur, Nombre de Processeurs, Capacité de Mémoire, Capacité de Stockage, Espace de Stockage Utilisé, Applications, Services</li>
             <li>Les applications et services doivent être séparés par des virgules</li>
         </ul>
 
-        <h2>Exemple de données</h2>
         <p>Voici un exemple de données formatées correctement :</p>
+        <h3>Exemple pour ajotuer un service :</h3>
         <pre>
-            Nom,Type de Serveur,Nombre de Processeurs,Capacité de Mémoire,Capacité de Stockage,Espace de Stockage Utilisé,Applications,Services
-            Serveur 1,Type 1,4,16,1000,500,Application 1,Service 1,Service 2
-            Serveur 2,Type 2,8,32,2000,1000,Application 2,Application 3,Service 3   
+            name,launch_date,memory_used,required_memory,launch_server
+            Service 1,2024-05-01,1024,2048,Serveur 1 
+        </pre>
+        <h3>Exemple pour ajouter une application :</h3>
+        <pre>
+            name,logo,user,services,launch_server
+            Application 1,logos/logo1.png,John Doe,Service 1|Service 2,Serveur 1
         </pre>
         
         <h2>Importer des données</h2>
-        <form method="post" enctype="multipart/form-data">
+        <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Importer</button>
         </form>
-
     </div>
 </div>
 
@@ -45,5 +47,5 @@
     <li><a href="{% url 'services_crud' %}">Services</a></li>
     <li><a href="{% url 'server_types_crud' %}">Types de Serveurs</a></li>
     <li><a href="{% url 'users_crud'%}">Utilisateurs</a></li>
-    <li><a href="{% url 'import' %}">Importer</a></li>
+    <li><a href="{% url 'import_home' %}">Importer</a></li>
 {% endblock %}

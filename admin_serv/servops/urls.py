@@ -13,11 +13,12 @@ urlpatterns = [
     path('service/', views.services, name='services_crud'),
     path('server_types/', views.server_types, name='server_types_crud'),
     path('users/', views.users, name='users_crud'),
+    path('import/', views.import_data_home, name='import_home'),
 
     ## FONCTIONS
     path('file/', views.pdf, name='pdf'),
-    path('import/', views.import_data_home, name='import'),
-
+    
+    
     ## CRUD SERVEURS
     path('servers/create/', views.CreateServerView, name='create_server'),
     path('servers/read/<int:id>/', views.ReadServerView, name='read_server'),
@@ -57,8 +58,5 @@ urlpatterns = [
 
     ## CRUD RESOURCE USAGE
     #path('resource_usage/home/', views.resource_usage_home, name='resource_usage_home'),
-    #path('resource_usage/create/', views.create_resource_usage, name='create_resource_usage'),
     #path('resource_usage/update/<int:resource_usage_id>/', views.update_resource_usage, name='update_resource_usage'),
-    #path('resource_usage/delete/<int:resource_usage_id>/', views.delete_resource_usage, name='delete_resource_usage'),
-    
 ]
