@@ -294,7 +294,7 @@ button:hover {
 }
 
 .service-box {
-    margin-top: 2%;
+    margin: 2%; /* Eh oui Maxence le css cest pas compliqué */
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
     padding: 20px;
