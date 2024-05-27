@@ -214,7 +214,7 @@ def DeleteServiceView(request):
         obj = Service.objects.get(id=id)
         obj.delete()
         return redirect('services_crud')
-    return render(request, 'servops/CRUD/CRUD_services/delete.html', {'form': form})
+    return render(request, 'servops/CRUD/CRUD_services/delete_service.html', {'form': form})
 
 def AfficheServiceView(request, id):
     service = Service.objects.get(id=id)
