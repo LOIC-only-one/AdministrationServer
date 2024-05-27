@@ -279,7 +279,7 @@ def DeleteServerView(request, id):
 
 
 ## Generation du rapport en PDF
-def pdf(request):
+def pdf():
     buffer = BytesIO()
     p = canvas.Canvas(buffer, pagesize=letter)
     services = Service.objects.all()
