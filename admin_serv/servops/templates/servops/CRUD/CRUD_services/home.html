@@ -29,11 +29,8 @@
         <p>Processeurs utilisé : {{service.required_processors}}</p>
 
         <p>Liste des serveurs qui lancent le service :</p>
-        <ul>
-            {% for server in servers %}
-            <li><p>{{server.name}}</p></li>
-            {% endfor %}
-        </ul>
+        <p>Serveur de lancement : {{ service.launch_server.name }}</p>
+        
     </div>
     {% endfor %}
 </div>

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-import io
+from io import BytesIO
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 from .models import Server, ServerType, ServUser, Service, Application, ResourceUsage
 from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, ResourceUsageForm, GetIDForm,CSVUploadForm
 import csv
@@ -265,16 +266,26 @@ def DeleteServerView(request, id):
 
 ## Generation du rapport en PDF
 def pdf(request):
-    """
-    Création d'un rapport pour les services réseaux
-    """
-    buffer = io.BytesIO()
-    p = canvas.Canvas(buffer)
-    p.drawString(100, 100, "Hello world.")
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer, pagesize=letter)
+    services = Service.objects.all()
+    y = 750
+    p.setFont("Helvetica-Bold", 16)
+    p.drawString(100, y, "Liste des Services")
+    y = y - 30
+    for service in services:
+        p.setFont("Helvetica", 12)
+        p.drawString(100, y, f"Nom du Service: {service.name}")
+        p.drawString(100, y-20, f"Date de Lancement: {service.launch_date}")
+        p.drawString(100, y-40, f"Mémoire Disque Utilisée: {service.memory_used} Go")
+        p.drawString(100, y-60, f"Mémoire Requise: {service.required_memory} Mo")
+        y = y - 80
+        ## Espace entre les services
+        y = y - 20 
     p.showPage()
     p.save()
     buffer.seek(0)
-    return FileResponse(buffer, as_attachment=True, filename="hello.pdf")
+    return FileResponse(buffer, as_attachment=True, filename="liste_services.pdf")
 
 
 def import_csv_view(request):
@@ -287,7 +298,6 @@ def import_csv_view(request):
 
             for row in reader:
                 try:
-                    # get_or_create returns a tuple (object, created), we just need the object
                     server = Server.objects.get_or_create(name=row['launch_server'])
                     Service.objects.create(
                         name=row['name'],

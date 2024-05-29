@@ -205,7 +205,7 @@ input[type="email"],
 input[type="password"],
 input[type="number"],
 input,
-select
+select,
 textarea {
     width: 100%;
     padding: 15px;
