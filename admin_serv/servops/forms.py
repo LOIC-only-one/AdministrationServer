@@ -62,5 +62,5 @@ class ResourceUsageForm(forms.ModelForm):
 class GetIDForm(forms.Form):
     id = forms.IntegerField()
     
-class UploadForm(forms.Form):
-    service_csv = forms.FileField()
+class CSVUpload(forms.Form):
+    csv_file = forms.FileField(label="Entrez le fichier csv")

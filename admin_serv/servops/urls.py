@@ -13,12 +13,10 @@ urlpatterns = [
     path('service/', views.services, name='services_crud'),
     path('server_types/', views.server_types, name='server_types_crud'),
     path('users/', views.users, name='users_crud'),
-    path('import/', views.import_data_home, name='import_home'),
 
     ## FONCTIONS
     path('file/', views.pdf, name='pdf'),
-    path('import/services/', views.import_data_home, name='import_services'),
-    
+    path('import-csv/', views.import_csv_view, name='import_csv'),
     
     ## CRUD SERVEURS
     path('servers/create/', views.CreateServerView, name='create_server'),

@@ -1,2 +1,4 @@
 name,launch_date,memory_used,required_memory,launch_server
-Service 1,2024-05-01,1024,2048,Serveur Bat A 
+Service A,2024-05-01,256,512,Serveur Bat A
+Service B,2024-06-15,128,256,Serveur Bat A
+Service C,2024-07-20,512,1024,Serveur Bat A

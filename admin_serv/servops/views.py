@@ -5,7 +5,7 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from .models import Server, ServerType, ServUser, Service, Application
-from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, GetIDForm, UploadForm
+from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, GetIDForm, CSVUpload
 import csv
 
 # Vues génériques pour les opérations CRUD
@@ -180,7 +180,7 @@ def AfficheServiceView(request, id):
     return detail_view(request, Service, 'servops/CRUD/CRUD_services/affiche_service.html', 'service', id)
 
 # Génération du rapport en PDF
-def pdf():
+def pdf(request):
     buffer = BytesIO()
     p = canvas.Canvas(buffer, pagesize=letter)
     services = Service.objects.all()
@@ -201,29 +201,29 @@ def pdf():
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename="liste_services.pdf")
 
-# Importation des données via un fichier CSV
-def import_data_home(request):
-    if request.method == "POST":
-        form = UploadForm(request.POST, request.FILES)
+## Import CSV
+
+def import_csv_view(request):
+    """
+    Encore ajouter un message en cas de succes
+    """
+    if request.method == 'POST':
+        form = CSVUpload(request.POST, request.FILES)
         if form.is_valid():
-            file = form.cleaned_data['service_csv']
-            decoded_file = file.read().decode('utf-8').splitlines()
-            reader = csv.reader(decoded_file, delimiter=',')
+            csv_file = request.FILES['csv_file']
+            decoded_file = csv_file.read().decode('utf-8').splitlines()
+            reader = csv.DictReader(decoded_file)
             for row in reader:
-                try:
-                    server = Server.objects.get(name=row[4])  # Assuming row[4] contains server name
-                    launch_date = datetime.strptime(row[1], '%Y-%m-%d').date()  # Adjust date format as needed
-                    Service.objects.get_or_create(
-                        name=row[0],
-                        launch_date=launch_date,
-                        memory_used=int(row[2]),
-                        required_memory=int(row[3]),
-                        launch_server=server
-                    )
-                except Exception as e:
-                    # Handle exceptions like missing server, incorrect date format, etc.
-                    print(f"Error processing row: {row}, Error: {e}")
-            return redirect('services_crud')
+                
+                server = Server.objects.get_or_create(name=row['launch_server'])
+                Service.objects.create(
+                    name=row['name'],
+                    launch_date=row['launch_date'],
+                    memory_used=row['memory_used'],
+                    required_memory=row['required_memory'],
+                    launch_server=server
+                )
+            return redirect('import_csv')
     else:
-        form = UploadForm()
-    return render(request, 'servops/FUNCTIONS/import.html', {'form': form})
+        form = CSVUpload()
+    return render(request, 'servops/FUNCTIONS/import_csv.html', {'form': form})

@@ -29,10 +29,10 @@
         </pre>
         
         <h2>Importer des données</h2>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Importer</button>
+            <button type="submit">Upload</button>
         </form>
     </div>
 </div>
@@ -52,5 +52,4 @@
     <li><a href="{% url 'services_crud' %}">Services</a></li>
     <li><a href="{% url 'server_types_crud' %}">Types de Serveurs</a></li>
     <li><a href="{% url 'users_crud'%}">Utilisateurs</a></li>
-    <li><a href="{% url 'import_home' %}">Importer</a></li>
 {% endblock %}
