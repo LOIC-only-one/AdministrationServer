@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 class ServerType(models.Model):
     type = models.CharField(max_length=200)
@@ -19,7 +20,8 @@ class Server(models.Model):
     def __str__(self):
         return self.name
     
-    @property
+    ## Methodes pour les ressources utilisées
+    
     def free_processors(self):
         services = self.services.all()
         total = 0
@@ -28,7 +30,13 @@ class Server(models.Model):
         free = self.num_processors - total
         return free
     
-    
+    def free_ram(self):
+        services = self.services.all()
+        total = 0
+        for service in services:
+            total += service.required_memory
+        return self.memory_capacity - total
+        
 class Service(models.Model):
     name = models.CharField(max_length=200)
     launch_date = models.DateField()
@@ -39,6 +47,7 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class ServUser(models.Model):
     first_name = models.CharField(max_length=100)
@@ -57,7 +66,25 @@ class Application(models.Model):
 
     def __str__(self):
         return self.name
-
+    
+    def memoire_ram_total(self):
+        total = 0
+        for service in self.services.all():
+            total += service.required_memory
+        return total
+    
+    def processeurs_total(self):
+        total = 0
+        for service in self.services.all():
+            total += service.required_processors
+        return total
+    
+    def stockage_total(self):
+        total = 0
+        for service in self.services.all():
+            total += service.memory_used
+        return total
+    
 class ResourceUsage(models.Model):
     ## Pas de update + Affichage sur la page des applications
     application = models.ForeignKey(Application, on_delete=models.CASCADE, related_name='resource_usages')

@@ -25,12 +25,12 @@
         <p>Nom : {{service.name}}</p>
         <p>Date de lancement : {{service.launch_date}}</p>
         <p>Stockage requis : {{service.memory_used}} Go</p>
-        <p>Mémoire vive requise : {{service.required_memory}} Go</p>
+        <p>Mémoire vive requise : {{service.required_memory}} Mo</p>
         <p>Processeurs utilisé : {{service.required_processors}}</p>
 
         <p>Liste des serveurs qui lancent le service :</p>
         <p>Serveur de lancement : {{ service.launch_server.name }}</p>
-        
+
     </div>
     {% endfor %}
 </div>

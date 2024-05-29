@@ -13,8 +13,9 @@
         <ul>
             <li><strong>Type de serveur :</strong> {{ server.server_type }}</li>
             <li><strong>Processeurs libres :</strong> {{ server.free_processors }}</li>
-            <li><strong>Capacité de mémoire :</strong> {{ server.memory_capacity }} GB</li>
-            <li><strong>Capacité de stockage :</strong> {{ server.storage_capacity }} GB</li>
+            
+            <li><strong>Capacité de mémoire :</strong> {{ server.free_ram }} Mo</li>
+            <li><strong>Capacité de stockage :</strong> {{ server.storage_capacity }} Go</li>
         </ul>
         
         <h4>Applications associées :</h4>
@@ -28,7 +29,7 @@
         <ul>
             {% for service in server.services.all %}
             <li><strong>{{ service.name }}</strong></li>
-            <li>Mémoire vive utilisé : {{ service.required_memory }} Go</li>
+            <li>Mémoire vive utilisé : {{ service.required_memory }} Mo</li>
             <li>Stockage requis : {{ service.memory_used }} Go</li>
             <li>Nombre de processeurs utilisé : {{ service.required_processors }}</li>
             {% endfor %}

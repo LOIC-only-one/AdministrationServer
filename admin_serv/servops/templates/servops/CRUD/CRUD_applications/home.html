@@ -16,6 +16,14 @@
         <h3>{{ application.name }}</h3>
         <img src="{{ application.logo.url }}" alt="{{ application.name }}" class="image-upload">
         <p>Créé par: {{ application.user }}</p>
+
+        <h3>Informations :</h3>
+        <ul>
+            <li>RAM utilisé : {{ application.memoire_ram_total }} Mo</li>
+            <li>Stockage utilisé : {{ application.stockage_total }} Go</li>
+            <li>Nombre de processeurs utilisés : {{ application.processeurs_total }}</li>
+        </ul>
+
         <h3>Services associés :</h3>
         <ul>
             {% for service in application.services.all %}
