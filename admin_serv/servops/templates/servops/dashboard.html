@@ -12,11 +12,15 @@
         <h3>{{ server.name }}</h3>
         <ul>
             <li><strong>Type de serveur :</strong> {{ server.server_type }}</li>
-            <li><strong>Processeurs libres :</strong> {{ server.free_processors }}</li>
-            
-            <li><strong>Capacité de mémoire :</strong> {{ server.free_ram }} Mo</li>
+            <li><strong>Nombre de processeurs :</strong> {{ server.num_processors }}</li>
+            <li><strong>Capacité de mémoire :</strong> {{ server.memory_capacity }} Mo</li>
             <li><strong>Capacité de stockage :</strong> {{ server.storage_capacity }} Go</li>
         </ul>
+
+        <h4>Ressources restantes :</h4>
+        <li><strong>Processeurs libres :</strong> {{ server.free_processors }}</li>
+        <li><strong>Capacité de mémoire restante :</strong> {{ server.free_ram }} Mo</li>
+        <li><strong>Capacité de stockage restante :</strong> {{ server.free_stockage }} Go</li>
         
         <h4>Applications associées :</h4>
         <ul>

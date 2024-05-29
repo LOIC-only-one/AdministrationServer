@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.exceptions import ValidationError
 
 class ServerType(models.Model):
     type = models.CharField(max_length=200)
@@ -14,8 +13,8 @@ class Server(models.Model):
     num_processors = models.IntegerField()
     memory_capacity = models.IntegerField()
     storage_capacity = models.IntegerField()
-    used_processors = models.IntegerField(default=0)  # Nombre de processeurs utilisés
-    used_memory = models.IntegerField(default=0)  # Espace mémoire utilisé en Go
+    used_processors = models.IntegerField(default=0)
+    used_memory = models.IntegerField(default=0)
     
     def __str__(self):
         return self.name
@@ -23,20 +22,27 @@ class Server(models.Model):
     ## Methodes pour les ressources utilisées
     
     def free_processors(self):
-        services = self.services.all()
         total = 0
-        for service in services:
-            total += service.required_processors
+        for application in self.applications.all():
+            for service in application.services.all():
+                total += service.required_processors
         free = self.num_processors - total
         return free
-    
+
     def free_ram(self):
-        services = self.services.all()
         total = 0
-        for service in services:
-            total += service.required_memory
+        for application in self.applications.all():
+            for service in application.services.all():
+                total += service.required_memory
         return self.memory_capacity - total
-        
+
+    def free_stockage(self):
+        total = 0
+        for application in self.applications.all():
+            for service in application.services.all():
+                total += service.memory_used / 1024  # Convertir de Mo à Go
+        return round(self.storage_capacity - total, 2)
+    
 class Service(models.Model):
     name = models.CharField(max_length=200)
     launch_date = models.DateField()
