@@ -3,7 +3,9 @@ import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from .models import Server, ServerType, ServUser, Service, Application, ResourceUsage
-from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, ResourceUsageForm, GetIDForm
+from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, ResourceUsageForm, GetIDForm,CSVUploadForm
+import csv
+
 
 ## Créations des vues pour les index SR du site
 def index(request):
@@ -273,3 +275,31 @@ def pdf(request):
     p.save()
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename="hello.pdf")
+
+
+def import_csv_view(request):
+    if request.method == "POST":
+        form = CSVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            csv_file = request.FILES['csv_file']
+            decoded_file = csv_file.read().decode('utf-8').splitlines()
+            reader = csv.DictReader(decoded_file)
+
+            for row in reader:
+                try:
+                    # get_or_create returns a tuple (object, created), we just need the object
+                    server = Server.objects.get_or_create(name=row['launch_server'])
+                    Service.objects.create(
+                        name=row['name'],
+                        launch_date=row['launch_date'],
+                        memory_used=row['memory_used'],
+                        required_memory=row['required_memory'],
+                        launch_server=server
+                    )
+                except Exception as e:
+                    continue
+            return redirect('import_csv')
+    else:
+        form = CSVUploadForm()
+    
+    return render(request, 'servops/FUNCTIONS/import_csv.html', {'form': form})
