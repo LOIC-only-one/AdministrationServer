@@ -13,6 +13,8 @@ class Server(models.Model):
     num_processors = models.IntegerField()
     memory_capacity = models.IntegerField()
     storage_capacity = models.IntegerField()
+    used_processors = models.IntegerField(default=0)  # Nombre de processeurs utilisés
+    used_memory = models.IntegerField(default=0)  # Espace mémoire utilisé en Go
     
     def __str__(self):
         return self.name
@@ -23,6 +25,7 @@ class Service(models.Model):
     launch_date = models.DateField()
     memory_used = models.IntegerField()
     required_memory = models.IntegerField()
+    required_processors = models.IntegerField(default=1) 
     launch_server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='services')
 
     def __str__(self):
