@@ -32,8 +32,8 @@ class UserForm(forms.ModelForm):
 class ServiceForm(forms.ModelForm):
     name = forms.CharField(label='Nom du service')
     launch_date = forms.DateField(label='Date de lancement')
-    memory_used = forms.IntegerField(label='Espace mémoire disque utilisé (en Go)')
-    required_memory = forms.IntegerField(label='Mémoire vive nécessaire (en Go)')
+    memory_used = forms.IntegerField(label='Espace mémoire utilisé')
+    required_memory = forms.IntegerField(label='Mémoire vive nécessaire')
     launch_server = forms.ModelChoiceField(queryset=Server.objects.all(), label='Serveur de lancement')
         
     class Meta:
@@ -61,6 +61,3 @@ class ResourceUsageForm(forms.ModelForm):
         
 class GetIDForm(forms.Form):
     id = forms.IntegerField()
-    
-class CSVUpload(forms.Form):
-    csv_file = forms.FileField(label="Entrez le fichier csv")

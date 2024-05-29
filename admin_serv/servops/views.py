@@ -1,67 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from io import BytesIO
-from datetime import datetime
+import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-from .models import Server, ServerType, ServUser, Service, Application
-from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, GetIDForm, CSVUpload
-import csv
+from .models import Server, ServerType, ServUser, Service, Application, ResourceUsage
+from .forms import ServerForm, ServerTypeForm, UserForm, ServiceForm, ApplicationForm, ResourceUsageForm, GetIDForm
 
-# Vues génériques pour les opérations CRUD
-def list_view(request, model, template_name, context_name):
-    """
-    Permet de lister les éléments d'un modèle
-    """
-    items = model.objects.all()
-    return render(request, template_name, {context_name: items})
-
-def detail_view(request, model, template_name, context_name, id):
-    """
-    Permet d'afficher les détails d'un élément d'un modèle
-    """
-    item = get_object_or_404(model, id=id)
-    return render(request, template_name, {context_name: item})
-
-def create_view(request, form_class, template_name, success_url):
-    """
-    Permet de créer un élément d'un modèle
-    """
-    if request.method == "POST":
-        form = form_class(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(success_url)
-    else:
-        form = form_class()
-    return render(request, template_name, {'form': form})
-
-def delete_view(request, model, success_url, id):
-    """
-    Permet de supprimer un élément d'un modèle
-    """
-    item = get_object_or_404(model, id=id)
-    if request.method == "POST":
-        item.delete()
-        return redirect(success_url)
-    return render(request, 'servops/CRUD/delete_template.html', {'item': item})
-
-def update_view(request, model, form_class, template_name, success_url, id):
-    """
-    Permet de mettre à jour un élément d'un modèle
-    """
-    item = get_object_or_404(model, id=id)
-    if request.method == "POST":
-        form = form_class(request.POST, instance=item)
-        if form.is_valid():
-            form.save()
-            return redirect(success_url)
-    else:
-        form = form_class(instance=item)
-    return render(request, template_name, {'form': form})
-
-
-# Fonctions spécifiques
+## Créations des vues pour les index SR du site
 def index(request):
     return render(request, 'servops/home.html')
 
@@ -73,157 +17,259 @@ def applications(request):
     return render(request, 'servops/CURD/CRUD_applications/home.html')
 
 def servers(request):
-    servers = Server.objects.all()
-    return render(request, 'servops/CRUD/CRUD_serveurs/home.html', {'servers': servers})
+    return render(request,'servops/CRUD/CRUD_serveurs/home.html')
 
 def services(request):
     services = Service.objects.all()
-    servers = Server.objects.all()
-    return render(request, 'servops/CRUD/CRUD_services/home.html', {'services': services, 'servers': servers})
-
+    return render(request, 'servops/CRUD/CRUD_services/home.html', {'services': services})
+    
 def server_types(request):
     server_types = ServerType.objects.all()
-    return render(request, 'servops/CRUD/CRUD_type_serveurs/home.html', {'server_types': server_types})
-
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/home.html', {'server_types': server_types} )
+    
 def users(request):
     users = ServUser.objects.all()
     return render(request, 'servops/CRUD/CRUD_utilisateurs/home.html', {'users': users})
 
 
-# CRUD Server
+
+## CRUD Server
 def CreateServerView(request):
-    return create_view(request, ServerForm, 'servops/CRUD/CRUD_serveurs/create_serveur.html', 'servers_crud')
+    if request.method == "POST":
+        form = ServerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('servops:index')
+        else:
+            form = ServerForm()
+        return render(request, 'servops/CRUD/CRUD_serveurs/create_serveur.html')
 
-def ReadServerView(request, id):
-    return detail_view(request, Server, 'servops/CRUD/CRUD_serveurs/read_server.html', 'server', id)
 
-def UpdateServerView(request, id):
-    return update_view(request, Server, ServerForm, 'servops/CRUD/CRUD_serveurs/update_serveur.html', 'servers_crud', id)
-
-def DeleteServerView(request, id):
-    return delete_view(request, Server, 'servers_crud', id)
-
-# CRUD Utilisateurs
+## Crud Utilisateurs
 def CreateUsersView(request):
-    return create_view(request, UserForm, 'servops/CRUD/CRUD_utilisateurs/create_user.html', 'users_crud')
-
-def ReadUsersView(request):
-    return render(request, 'servops/CRUD/CRUD_utilisateurs/read_user.html', {'form': GetIDForm()})
-
-def AfficheUsersView(request, id):
-    return detail_view(request, ServUser, 'servops/CRUD/CRUD_utilisateurs/affiche.html', 'user', id)
-
-def UpdateUsersView(request, id):
-    return update_view(request, ServUser, UserForm, 'servops/CRUD/CRUD_utilisateurs/update_user.html', 'users_crud', id)
-
-def UpdateUsersViewModificate(request, id):
-    return update_view(request, ServUser, UserForm, 'servops/CRUD/CRUD_utilisateurs/update_user.html', 'users_crud', id)
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect('affiche_users', id=user.id)
+    else:
+        form = UserForm()
+    return render(request, 'servops/CRUD/CRUD_utilisateurs/create_user.html', {'form': form})
 
 def DeleteUsersView(request):
-    form = GetIDForm(request.POST)
+    form = GetIDForm(request.POST or None)
     if form.is_valid():
         id = form.cleaned_data.get('id')
-        return delete_view(request, ServUser, 'users_crud', id)
+        obj = ServUser.objects.get(id=id)
+        obj.delete()
+        return redirect('users_crud')
     return render(request, 'servops/CRUD/CRUD_utilisateurs/delete.html', {'form': form})
 
-# CRUD Applications
+
+def ReadUsersView(request):
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('affiche_users', id=id)
+    return render(request, 'servops/CRUD/CRUD_utilisateurs/read_user.html', {'form': form})
+
+
+def AfficheUsersView(request, id):
+    user = ServUser.objects.get(id=id)
+    return render(request, 'servops/CRUD/CRUD_utilisateurs/affiche.html', {'user': user})
+
+
+def UpdateUsersView(request):
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('update_users', id=id)
+    return render(request, 'servops/CRUD/CRUD_utilisateurs/update_user.html', {'form': form})
+
+def UpdateUsersViewModificate(request, id):
+    user = ServUser.objects.get(id=id)
+    if request.method == "POST":
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('users_crud')
+    else:
+        form = UserForm(instance=user)
+    return render(request, 'servops/CRUD/CRUD_utilisateurs/update_user.html', {'form': form})
+
+
+## CRUD_Applications
 def applications_home(request):
-    return list_view(request, Application, 'servops/CRUD/CRUD_applications/home.html', 'applications')
+    applications = Application.objects.all()
+    return render(request, 'servops/CRUD/CRUD_applications/home.html', {'applications': applications})
 
 def create_application(request):
-    return create_view(request, ApplicationForm, 'servops/CRUD/CRUD_applications/create_app.html', 'applications_home')
+    if request.method == "POST":
+        form = ApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('applications_home')
+    else:
+        form = ApplicationForm()
+    return render(request, 'servops/CRUD/CRUD_applications/create_app.html', {'form': form})
 
 def update_application(request, application_id):
-    return update_view(request, Application, ApplicationForm, 'servops/CRUD/CRUD_applications/update_app.html', 'applications_home', application_id)
+    application = get_object_or_404(Application, pk=application_id)
+    if request.method == "POST":
+        form = ApplicationForm(request.POST, request.FILES, instance=application)
+        if form.is_valid():
+            form.save()
+            return redirect('applications_home')
+    else:
+        form = ApplicationForm(instance=application)
+    return render(request, 'servops/CRUD/CRUD_applications/update_app.html', {'form': form})
 
 def delete_application(request, application_id):
-    return delete_view(request, Application, 'applications_home', application_id)
+    application = get_object_or_404(Application, pk=application_id)
+    if request.method == "POST":
+        application.delete()
+        return redirect('applications_home')
+    return render(request, 'servops/CRUD/CRUD_applications/delete_app.html', {'application': application})
 
-# CRUD Type Serveur
+## CRUD Type Serveur
 def CreateServerTypeView(request):
-    return create_view(request, ServerTypeForm, 'servops/CRUD/CRUD_type_serveurs/create_type.html', 'server_types_crud')
+    if request.method == "POST":
+        form = ServerTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('server_types_crud')
+    else:
+        form = ServerTypeForm()
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/create_type.html', {'form': form})
 
 def DeleteServerTypeView(request):
-    form = GetIDForm(request.POST)
+    form = GetIDForm(request.POST or None)
     if form.is_valid():
         id = form.cleaned_data.get('id')
-        return delete_view(request, ServerType, 'server_types_crud', id)
+        obj = ServerType.objects.get(id=id)
+        obj.delete()
+        return redirect('server_types_crud')
     return render(request, 'servops/CRUD/CRUD_type_serveurs/delete.html', {'form': form})
 
 def ReadServerTypeView(request):
-    return render(request, 'servops/CRUD/CRUD_type_serveurs/read_type.html', {'form': GetIDForm()})
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('affiche_server_type', id=id)
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/read_type.html', {'form': form})
 
 def AfficheServerTypeView(request, id):
-    return detail_view(request, ServerType, 'servops/CRUD/CRUD_type_serveurs/affiche_type.html', 'server_type', id)
+    server_type = ServerType.objects.get(id=id)
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/affiche_type.html', {'server_type': server_type})
 
-def UpdateServerTypeView(request, id):
-    return update_view(request, ServerType, ServerTypeForm, 'servops/CRUD/CRUD_type_serveurs/update_type.html', 'server_types_crud', id)
+def UpdateServerTypeView(request):
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('update_server_type', id=id)
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/update_type.html', {'form': form})
 
 def UpdateServerTypeViewModificate(request, id):
-    return update_view(request, ServerType, ServerTypeForm, 'servops/CRUD/CRUD_type_serveurs/update_type.html', 'server_types_crud', id)
+    server_type = ServerType.objects.get(id=id)
+    if request.method == "POST":
+        form = ServerTypeForm(request.POST, instance=server_type)
+        if form.is_valid():
+            form.save()
+            return redirect('server_types_crud')
+    else:
+        form = ServerTypeForm(instance=server_type)
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/update_type.html', {'form': form})
 
-# CRUD Services
-def CreateServiceView(request):
-    return create_view(request, ServiceForm, 'servops/CRUD/CRUD_services/create_service.html', 'services_crud')
+## CRUD Services
+## Attention, il manque la vue pour l'update + Lien avec le serveur pour savoir si il a assez de ressources
 
 def ReadServiceView(request):
-    return render(request, 'servops/CRUD/CRUD_services/read_service.html', {'form': GetIDForm()})
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('affiche_service', id=id)
+    return render(request, 'servops/CRUD/CRUD_services/read_service.html', {'form': form})
 
 def DeleteServiceView(request):
-    form = GetIDForm(request.POST)
+    form = GetIDForm(request.POST or None)
     if form.is_valid():
         id = form.cleaned_data.get('id')
-        return delete_view(request, Service, 'services_crud', id)
-    return render(request, 'servops/CRUD/CRUD_services/delete_service.html', {'form': form})
+        obj = Service.objects.get(id=id)
+        obj.delete()
+        return redirect('services_crud')
+    return render(request, 'servops/CRUD/CRUD_services/delete.html', {'form': form})
 
 def AfficheServiceView(request, id):
-    return detail_view(request, Service, 'servops/CRUD/CRUD_services/affiche_service.html', 'service', id)
+    service = Service.objects.get(id=id)
+    return render(request, 'servops/CRUD/CRUD_services/affiche_service.html', {'service': service})
 
-# Génération du rapport en PDF
+def CreateServiceView(request):
+    if request.method == "POST":
+        form = ServiceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('services_crud')
+    else:
+        form = ServiceForm()
+    return render(request, 'servops/CRUD/CRUD_services/create_service.html', {'form': form})
+
+
+## CRUD Serveur
+
+def servers(request):
+    servers = Server.objects.all()
+    return render(request, 'servops/CRUD/CRUD_serveurs/home.html', {'servers': servers})
+
+def CreateServerView(request):
+    if request.method == "POST":
+        form = ServerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('servers_crud')
+    else:
+        form = ServerForm()
+    return render(request, 'servops/CRUD/CRUD_serveurs/create_serveur.html', {'form': form})
+
+def ReadServerView(request):
+    form = GetIDForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        id = form.cleaned_data.get('id')
+        return redirect('read_server', id=id)
+    return render(request, 'servops/CRUD/CRUD_serveurs/read_server.html', {'form': form})
+
+def AfficheServerView(request, id):
+    server = get_object_or_404(Server, id=id)
+    return render(request, 'servops/CRUD/CRUD_serveurs/read_server.html', {'server': server})
+
+def UpdateServerView(request, id):
+    server = get_object_or_404(Server, id=id)
+    if request.method == "POST":
+        form = ServerForm(request.POST, instance=server)
+        if form.is_valid():
+            form.save()
+            return redirect('servers_crud')
+    else:
+        form = ServerForm(instance=server)
+    return render(request, 'servops/CRUD/CRUD_serveurs/update_serveur.html', {'form': form})
+
+def DeleteServerView(request, id):
+    server = get_object_or_404(Server, id=id)
+    if request.method == "POST":
+        server.delete()
+        return redirect('servers_crud')
+    return render(request, 'servops/CRUD/CRUD_serveurs/delete_serveur.html', {'server': server})
+
+
+
+## Generation du rapport en PDF
 def pdf(request):
-    buffer = BytesIO()
-    p = canvas.Canvas(buffer, pagesize=letter)
-    services = Service.objects.all()
-    y = 750
-    p.setFont("Helvetica-Bold", 16)
-    p.drawString(100, y, "Liste des Services")
-    y -= 30
-    for service in services:
-        p.setFont("Helvetica", 12)
-        p.drawString(100, y, f"Nom du Service: {service.name}")
-        p.drawString(100, y-20, f"Date de Lancement: {service.launch_date}")
-        p.drawString(100, y-40, f"Mémoire Disque Utilisée: {service.memory_used} Go")
-        p.drawString(100, y-60, f"Mémoire Requise: {service.required_memory} Mo")
-        y -= 80
-        y -= 20
+    """
+    Création d'un rapport pour les services réseaux
+    """
+    buffer = io.BytesIO()
+    p = canvas.Canvas(buffer)
+    p.drawString(100, 100, "Hello world.")
     p.showPage()
     p.save()
     buffer.seek(0)
-    return FileResponse(buffer, as_attachment=True, filename="liste_services.pdf")
-
-## Import CSV
-
-def import_csv_view(request):
-    """
-    Encore ajouter un message en cas de succes
-    """
-    if request.method == 'POST':
-        form = CSVUpload(request.POST, request.FILES)
-        if form.is_valid():
-            csv_file = request.FILES['csv_file']
-            decoded_file = csv_file.read().decode('utf-8').splitlines()
-            reader = csv.DictReader(decoded_file)
-            for row in reader:
-                
-                server = Server.objects.get_or_create(name=row['launch_server'])
-                Service.objects.create(
-                    name=row['name'],
-                    launch_date=row['launch_date'],
-                    memory_used=row['memory_used'],
-                    required_memory=row['required_memory'],
-                    launch_server=server
-                )
-            return redirect('import_csv')
-    else:
-        form = CSVUpload()
-    return render(request, 'servops/FUNCTIONS/import_csv.html', {'form': form})
+    return FileResponse(buffer, as_attachment=True, filename="hello.pdf")

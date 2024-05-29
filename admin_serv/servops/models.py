@@ -13,25 +13,20 @@ class Server(models.Model):
     num_processors = models.IntegerField()
     memory_capacity = models.IntegerField()
     storage_capacity = models.IntegerField()
-    used_storage = models.IntegerField(default=0)  # Espace utilisé en Go
-    total_storage = models.IntegerField(default=0)  # Capacité totale de stockage en Go
     
     def __str__(self):
         return self.name
     
+    
 class Service(models.Model):
-    """
-    doit encore faire la verification des ressources disponibles avec le serveur de lancement
-    """
     name = models.CharField(max_length=200)
     launch_date = models.DateField()
     memory_used = models.IntegerField()
     required_memory = models.IntegerField()
     launch_server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='services')
-    
+
     def __str__(self):
         return self.name
-
 
 class ServUser(models.Model):
     first_name = models.CharField(max_length=100)
@@ -48,8 +43,10 @@ class Application(models.Model):
     services = models.ManyToManyField(Service, related_name='applications')
     launch_server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='applications')
 
+    def __str__(self):
+        return self.name
+
 class ResourceUsage(models.Model):
     ## Pas de update + Affichage sur la page des applications
-    ## Modification des ressources utilisées par une application
     application = models.ForeignKey(Application, on_delete=models.CASCADE, related_name='resource_usages')
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='resource_usages')
