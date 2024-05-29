@@ -34,6 +34,7 @@ class ServiceForm(forms.ModelForm):
     launch_date = forms.DateField(label='Date de lancement')
     memory_used = forms.IntegerField(label='Espace mémoire utilisé')
     required_memory = forms.IntegerField(label='Mémoire vive nécessaire')
+    required_processors = forms.IntegerField(label='Nombre de processeurs nécessaires')
     launch_server = forms.ModelChoiceField(queryset=Server.objects.all(), label='Serveur de lancement')
         
     class Meta:
