@@ -5,7 +5,7 @@ class ServerForm(forms.ModelForm):
     name = forms.CharField(label='Nom')
     server_type = forms.ModelChoiceField(queryset=ServerType.objects.all(), label='Type de serveur')
     num_processors = forms.IntegerField(label='Nombre de processeurs')
-    memory_capacity = forms.IntegerField(label='Capacité mémoire')
+    memory_capacity = forms.IntegerField(label='Capacité mémoire (RAM)')
     storage_capacity = forms.IntegerField(label='Capacité de stockage')
 
     class Meta:
@@ -32,8 +32,8 @@ class UserForm(forms.ModelForm):
 class ServiceForm(forms.ModelForm):
     name = forms.CharField(label='Nom du service')
     launch_date = forms.DateField(label='Date de lancement')
-    memory_used = forms.IntegerField(label='Espace mémoire utilisé')
-    required_memory = forms.IntegerField(label='Mémoire vive nécessaire')
+    memory_used = forms.IntegerField(label='Espace de stockage (en Mo)')
+    required_memory = forms.IntegerField(label='Mémoire vive nécessaire (en Mo)')
     required_processors = forms.IntegerField(label='Nombre de processeurs nécessaires')
     launch_server = forms.ModelChoiceField(queryset=Server.objects.all(), label='Serveur de lancement')
         
@@ -64,4 +64,4 @@ class GetIDForm(forms.Form):
     id = forms.IntegerField()
     
 class CSVUploadForm(forms.Form):
-    csv_file = forms.FileField(label='Select a CSV file')
+    csv_file = forms.FileField(label='Selectionner un fichier CSV')

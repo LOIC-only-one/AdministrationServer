@@ -13,8 +13,15 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Informations de l'utilisateur</h2>
-    <p>Nom d'utilisateur : {{ user.first_name }}</p>
-    <p>Prenom d'utilisateur : {{ user.last_name }}</p>
-    <p>Email : {{ user.email }}</p>
+<div class="container">
+    <div class="service-box">
+        <h2>Informations de l'utilisateur</h2>
+        <ul>
+            <li><p>Nom d'utilisateur : {{ user.first_name }}</p></li>
+            <li><p>Prenom d'utilisateur : {{ user.last_name }}</p></li>
+            <li><p>Email : {{ user.email }}</p></li>
+        </ul>
+        <a href="{% url 'users_crud' %}">Continuer</a>
+    </div>
+</div>
 {% endblock %}

@@ -117,7 +117,7 @@ main p, main h1, main h2, main h3, a {
     gap: 20px;
 }
 
-.header-banner a {
+.header-banner a, .style-link {
     z-index: 1;
     color: #fff;
     text-decoration: none;

@@ -60,7 +60,7 @@ def CreateUsersView(request):
     return render(request, 'servops/CRUD/CRUD_utilisateurs/create_user.html', {'form': form})
 
 def DeleteUsersView(request):
-    form = GetIDForm(request.POST or None)
+    form = GetIDForm(request.POST)
     if form.is_valid():
         id = form.cleaned_data.get('id')
         obj = ServUser.objects.get(id=id)
@@ -70,7 +70,7 @@ def DeleteUsersView(request):
 
 
 def ReadUsersView(request):
-    form = GetIDForm(request.POST or None)
+    form = GetIDForm(request.POST)
     if request.method == 'POST' and form.is_valid():
         id = form.cleaned_data.get('id')
         return redirect('affiche_users', id=id)
@@ -83,7 +83,7 @@ def AfficheUsersView(request, id):
 
 
 def UpdateUsersView(request):
-    form = GetIDForm(request.POST or None)
+    form = GetIDForm(request.POST)
     if request.method == 'POST' and form.is_valid():
         id = form.cleaned_data.get('id')
         return redirect('update_users', id=id)
@@ -146,7 +146,7 @@ def CreateServerTypeView(request):
     return render(request, 'servops/CRUD/CRUD_type_serveurs/create_type.html', {'form': form})
 
 def DeleteServerTypeView(request):
-    form = GetIDForm(request.POST or None)
+    form = GetIDForm(request.POST)
     if form.is_valid():
         id = form.cleaned_data.get('id')
         obj = ServerType.objects.get(id=id)
@@ -155,7 +155,7 @@ def DeleteServerTypeView(request):
     return render(request, 'servops/CRUD/CRUD_type_serveurs/delete.html', {'form': form})
 
 def ReadServerTypeView(request):
-    form = GetIDForm(request.POST or None)
+    form = GetIDForm(request.POST)
     if request.method == 'POST' and form.is_valid():
         id = form.cleaned_data.get('id')
         return redirect('affiche_server_type', id=id)
@@ -166,7 +166,7 @@ def AfficheServerTypeView(request, id):
     return render(request, 'servops/CRUD/CRUD_type_serveurs/affiche_type.html', {'server_type': server_type})
 
 def UpdateServerTypeView(request):
-    form = GetIDForm(request.POST or None)
+    form = GetIDForm(request.POST)
     if request.method == 'POST' and form.is_valid():
         id = form.cleaned_data.get('id')
         return redirect('update_server_type', id=id)
@@ -187,14 +187,14 @@ def UpdateServerTypeViewModificate(request, id):
 ## Attention, il manque la vue pour l'update + Lien avec le serveur pour savoir si il a assez de ressources
 
 def ReadServiceView(request):
-    form = GetIDForm(request.POST or None)
+    form = GetIDForm(request.POST)
     if request.method == 'POST' and form.is_valid():
         id = form.cleaned_data.get('id')
         return redirect('affiche_service', id=id)
     return render(request, 'servops/CRUD/CRUD_services/read_service.html', {'form': form})
 
 def DeleteServiceView(request):
-    form = GetIDForm(request.POST or None)
+    form = GetIDForm(request.POST)
     if form.is_valid():
         id = form.cleaned_data.get('id')
         obj = Service.objects.get(id=id)
@@ -234,7 +234,7 @@ def CreateServerView(request):
     return render(request, 'servops/CRUD/CRUD_serveurs/create_serveur.html', {'form': form})
 
 def ReadServerView(request):
-    form = GetIDForm(request.POST or None)
+    form = GetIDForm(request.POST)
     if request.method == 'POST' and form.is_valid():
         id = form.cleaned_data.get('id')
         return redirect('read_server', id=id)

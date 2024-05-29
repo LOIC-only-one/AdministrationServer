@@ -13,12 +13,19 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Informations sur services</h2>
-    <p>Voici les informations du services {{ service.id }} :</p>
-    <ul>
-        <li><p>{{service.name}}</p></li>
-        <li><p>{{service.description}}</p></li>
-        <li><p>{{service.price}}</p></li>
-        <li><p>{{service.server_type}}</p></li>
-    </ul>
+<div class="container">
+    <div class="service-box">
+        <h2>Informations sur services</h2>
+            <p>Voici les informations du services {{ service.id }} :</p>
+            <ul>
+                <li><p>Nom : {{service.name}}</p></li>
+                <li><p>Date de lancement : {{service.launch_date}}</p></li>
+                <li><p>Mémoire utilisée : {{service.memory_used}}</p></li>
+                <li><p>Mémoire requise : {{service.required_memory}}</p></li>
+                <li><p>Processeurs requis : {{service.required_processors}}</p></li>
+                <li><p>Serveur de lancement : {{service.launch_server.name}}</p></li>
+            </ul>
+        <a href="{% url 'services_crud' %}">Continuer</a>
+    </div>
+</div>
 {% endblock %}

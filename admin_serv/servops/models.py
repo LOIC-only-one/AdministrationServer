@@ -19,6 +19,15 @@ class Server(models.Model):
     def __str__(self):
         return self.name
     
+    @property
+    def free_processors(self):
+        services = self.services.all()
+        total = 0
+        for service in services:
+            total += service.required_processors
+        free = self.num_processors - total
+        return free
+    
     
 class Service(models.Model):
     name = models.CharField(max_length=200)
