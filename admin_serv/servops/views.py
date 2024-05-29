@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from io import BytesIO
+from datetime import datetime
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
@@ -72,7 +73,8 @@ def applications(request):
     return render(request, 'servops/CURD/CRUD_applications/home.html')
 
 def servers(request):
-    return render(request, 'servops/CRUD/CRUD_serveurs/home.html')
+    servers = Server.objects.all()
+    return render(request, 'servops/CRUD/CRUD_serveurs/home.html', {'servers': servers})
 
 def services(request):
     services = Service.objects.all()
@@ -87,19 +89,6 @@ def users(request):
     users = ServUser.objects.all()
     return render(request, 'servops/CRUD/CRUD_utilisateurs/home.html', {'users': users})
 
-def import_data_home(request):
-    if request.method == "POST":
-        form = UploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            file = form.cleaned_data.get('file')
-            with open(file, 'r') as f:
-                reader = csv.reader(f)
-                for row in reader:
-                    print(row)
-            return redirect('index')
-    else:
-        form = UploadForm()
-    return render(request, 'servops/FUNCTIONS/import.html', {'form': form})
 
 # CRUD Server
 def CreateServerView(request):
@@ -213,5 +202,28 @@ def pdf():
     return FileResponse(buffer, as_attachment=True, filename="liste_services.pdf")
 
 # Importation des données via un fichier CSV
-def import_services(request):
-    pass
+def import_data_home(request):
+    if request.method == "POST":
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = form.cleaned_data['service_csv']
+            decoded_file = file.read().decode('utf-8').splitlines()
+            reader = csv.reader(decoded_file, delimiter=',')
+            for row in reader:
+                try:
+                    server = Server.objects.get(name=row[4])  # Assuming row[4] contains server name
+                    launch_date = datetime.strptime(row[1], '%Y-%m-%d').date()  # Adjust date format as needed
+                    Service.objects.get_or_create(
+                        name=row[0],
+                        launch_date=launch_date,
+                        memory_used=int(row[2]),
+                        required_memory=int(row[3]),
+                        launch_server=server
+                    )
+                except Exception as e:
+                    # Handle exceptions like missing server, incorrect date format, etc.
+                    print(f"Error processing row: {row}, Error: {e}")
+            return redirect('services_crud')
+    else:
+        form = UploadForm()
+    return render(request, 'servops/FUNCTIONS/import.html', {'form': form})

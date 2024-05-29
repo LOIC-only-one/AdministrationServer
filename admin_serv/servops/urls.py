@@ -17,7 +17,7 @@ urlpatterns = [
 
     ## FONCTIONS
     path('file/', views.pdf, name='pdf'),
-    path('import/services/', views.import_services, name='import_services'),
+    path('import/services/', views.import_data_home, name='import_services'),
     
     
     ## CRUD SERVEURS

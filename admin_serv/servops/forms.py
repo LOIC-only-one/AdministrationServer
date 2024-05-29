@@ -63,5 +63,4 @@ class GetIDForm(forms.Form):
     id = forms.IntegerField()
     
 class UploadForm(forms.Form):
-    title = forms.CharField(max_length=50)
     service_csv = forms.FileField()
