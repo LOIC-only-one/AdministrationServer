@@ -15,9 +15,6 @@
             <li><strong>Nombre de processeurs :</strong> {{ server.num_processors }}</li>
             <li><strong>Capacité de mémoire :</strong> {{ server.memory_capacity }} GB</li>
             <li><strong>Capacité de stockage :</strong> {{ server.storage_capacity }} GB</li>
-            <li><strong>Espace de stockage utilisé :</strong> {{ server.used_storage }} GB</li>
-            <li><strong>Espace de stockage restant :</strong> {{ server.remaining_storage }} GB</li>
-            <li><strong>Pourcentage d'espace de stockage utilisé :</strong> {{ server.storage_percentage }}%</li>
         </ul>
         
         <h4>Applications associées :</h4>
@@ -30,7 +27,10 @@
         <h4>Services associés :</h4>
         <ul>
             {% for service in server.services.all %}
-            <li>{{ service.name }}</li>
+            <li><strong>{{ service.name }}</strong></li>
+            <li>Mémoire vive utilisé : {{ service.required_memory }} Go</li>
+            <li>Stockage requis : {{ service.memory_used }} Go</li>
+            <li>Nombre de processeurs utilisé : {{ service.required_processors }}</li>
             {% endfor %}
         </ul>
     </div>
