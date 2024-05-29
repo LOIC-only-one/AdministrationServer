@@ -39,7 +39,7 @@ class ServiceForm(forms.ModelForm):
         
     class Meta:
         model = Service
-        fields = ['name', 'launch_date', 'memory_used', 'required_memory', 'launch_server']
+        fields = ['name', 'launch_date', 'memory_used', 'required_memory', 'required_processors', 'launch_server']
         
 class ApplicationForm(forms.ModelForm):
     name = forms.CharField(label='Nom de l\'application')
