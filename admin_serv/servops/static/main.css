@@ -346,3 +346,22 @@ button:hover {
     flex-wrap: wrap;
     gap: 20px;
 }
+
+form.inline {
+    display: inline;
+}
+
+form.inline input[type="submit"] {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+    display: inline;
+}
+
+form.inline input[type="submit"]:hover {
+    color: #0056b3;
+}
+
