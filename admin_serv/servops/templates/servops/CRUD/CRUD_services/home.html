@@ -9,9 +9,6 @@
 <ul>
     <li><a href="{% url 'dashboard' %}" class="button">Dashboard</a></li>
     <li><a href="{% url 'create_service' %}" class="button">Créer</a></li>
-    <li><a href="{% url 'delete_service' %}" class="button">Supprimer</a></li>
-    <li><a href="{% url 'read_service' %}" class="button">Chercher</a></li>
-    <li><a href="#" class="button">Mettre à jour</a></li>
 </ul>
 {% endblock sidebar %}
 
@@ -31,10 +28,14 @@
         <p>Liste des serveurs qui lancent le service :</p>
         <p>Serveur de lancement : {{ service.launch_server.name }}</p>
 
+        <a href="{% url 'update_service' service.id %}">Modifier</a>
+        <form action="{% url 'delete_service' service.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Supprimer">
+        </form>
     </div>
     {% endfor %}
 </div>
-
 
 <h2>Télécharger un rapport complet des services :</h2>
 <button>
