@@ -9,19 +9,28 @@
 <ul>
     <li><a href="{% url 'dashboard' %}" class="button">Dashboard</a></li>
     <li><a href="{% url 'create_users' %}" class="button">Créer</a></li>
-    <li><a href="{% url 'delete_users' %}" class="button">Supprimer</a></li>
-    <li><a href="{% url 'read_users'%}" class="button">Chercher</a></li>
-    <li><a href="{% url 'update_users'%}" class="button">Mettre à jour</a></li>
 </ul>
 {% endblock sidebar %}
 
 {% block content %}
 <h2> Liste des Utilisateurs </h2>
 <table class="table-user">
-    <tr> <th>ID</th> <th>FN</th> <th>LN</th> <th>Email</th> </tr>
+    <tr> <th>ID</th> <th>FN</th> <th>LN</th> <th>Email</th> <th>Actions</th> </tr>
 {% for user in users %}
-    <tr> <th>{{user.id}}</th> <th>{{user.first_name}}</th> <th>{{user.last_name}}</th> <th>{{user.email}}</th>
-    {% empty %}
+    <tr> 
+        <td>{{user.id}}</td> 
+        <td>{{user.first_name}}</td> 
+        <td>{{user.last_name}}</td> 
+        <td>{{user.email}}</td>
+        <td>
+            <a href="{% url 'update_users' user.id %}">Modifier</a>
+            <form action="{% url 'delete_users' user.id %}" method="post" class="inline">
+                {% csrf_token %}
+                <input type="submit" value="Supprimer">
+            </form>
+        </td>
+    </tr>
+{% empty %}
     <li>Aucun utilisateur trouvé.</li>
 {% endfor %}
 </table>
