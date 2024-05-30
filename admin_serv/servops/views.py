@@ -59,14 +59,13 @@ def CreateUsersView(request):
         form = UserForm()
     return render(request, 'servops/CRUD/CRUD_utilisateurs/create_user.html', {'form': form})
 
-def DeleteUsersView(request):
-    form = GetIDForm(request.POST)
-    if form.is_valid():
-        id = form.cleaned_data.get('id')
-        obj = ServUser.objects.get(id=id)
-        obj.delete()
+def DeleteUsersView(request, id):
+    user = get_object_or_404(ServUser, id=id)
+    if request.method == "POST":
+        user.delete()
         return redirect('users_crud')
-    return render(request, 'servops/CRUD/CRUD_utilisateurs/delete.html', {'form': form})
+    return render(request, 'servops/CRUD/CRUD_utilisateurs/delete.html', {'user': user})
+
 
 
 def ReadUsersView(request):
@@ -145,14 +144,13 @@ def CreateServerTypeView(request):
         form = ServerTypeForm()
     return render(request, 'servops/CRUD/CRUD_type_serveurs/create_type.html', {'form': form})
 
-def DeleteServerTypeView(request):
-    form = GetIDForm(request.POST)
-    if form.is_valid():
-        id = form.cleaned_data.get('id')
-        obj = ServerType.objects.get(id=id)
-        obj.delete()
+def DeleteServerTypeView(request, id):
+    server_type = get_object_or_404(ServerType, id=id)
+    if request.method == "POST":
+        server_type.delete()
         return redirect('server_types_crud')
-    return render(request, 'servops/CRUD/CRUD_type_serveurs/delete.html', {'form': form})
+    return render(request, 'servops/CRUD/CRUD_type_serveurs/delete_type.html', {'server_type': server_type})
+
 
 def ReadServerTypeView(request):
     form = GetIDForm(request.POST)
@@ -193,14 +191,24 @@ def ReadServiceView(request):
         return redirect('affiche_service', id=id)
     return render(request, 'servops/CRUD/CRUD_services/read_service.html', {'form': form})
 
-def DeleteServiceView(request):
-    form = GetIDForm(request.POST)
-    if form.is_valid():
-        id = form.cleaned_data.get('id')
-        obj = Service.objects.get(id=id)
-        obj.delete()
+def UpdateServiceView(request, id):
+    service = get_object_or_404(Service, id=id)
+    if request.method == "POST":
+        form = ServiceForm(request.POST, instance=service)
+        if form.is_valid():
+            form.save()
+            return redirect('services_crud')
+    else:
+        form = ServiceForm(instance=service)
+    return render(request, 'servops/CRUD/CRUD_services/update_service.html', {'form': form})
+
+def DeleteServiceView(request, id):
+    service = get_object_or_404(Service, id=id)
+    if request.method == "POST":
+        service.delete()
         return redirect('services_crud')
-    return render(request, 'servops/CRUD/CRUD_services/delete.html', {'form': form})
+    return render(request, 'servops/CRUD/CRUD_services/delete_service.html', {'service': service})
+
 
 def AfficheServiceView(request, id):
     service = Service.objects.get(id=id)
