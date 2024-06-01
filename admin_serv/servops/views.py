@@ -67,26 +67,9 @@ def DeleteUsersView(request, id):
     return render(request, 'servops/CRUD/CRUD_utilisateurs/delete.html', {'user': user})
 
 
-
-def ReadUsersView(request):
-    form = GetIDForm(request.POST)
-    if request.method == 'POST' and form.is_valid():
-        id = form.cleaned_data.get('id')
-        return redirect('affiche_users', id=id)
-    return render(request, 'servops/CRUD/CRUD_utilisateurs/read_user.html', {'form': form})
-
-
 def AfficheUsersView(request, id):
     user = ServUser.objects.get(id=id)
     return render(request, 'servops/CRUD/CRUD_utilisateurs/affiche.html', {'user': user})
-
-
-def UpdateUsersView(request):
-    form = GetIDForm(request.POST)
-    if request.method == 'POST' and form.is_valid():
-        id = form.cleaned_data.get('id')
-        return redirect('update_users', id=id)
-    return render(request, 'servops/CRUD/CRUD_utilisateurs/update_user.html', {'form': form})
 
 def UpdateUsersViewModificate(request, id):
     user = ServUser.objects.get(id=id)
@@ -152,23 +135,9 @@ def DeleteServerTypeView(request, id):
     return render(request, 'servops/CRUD/CRUD_type_serveurs/delete_type.html', {'server_type': server_type})
 
 
-def ReadServerTypeView(request):
-    form = GetIDForm(request.POST)
-    if request.method == 'POST' and form.is_valid():
-        id = form.cleaned_data.get('id')
-        return redirect('affiche_server_type', id=id)
-    return render(request, 'servops/CRUD/CRUD_type_serveurs/read_type.html', {'form': form})
-
 def AfficheServerTypeView(request, id):
     server_type = ServerType.objects.get(id=id)
     return render(request, 'servops/CRUD/CRUD_type_serveurs/affiche_type.html', {'server_type': server_type})
-
-def UpdateServerTypeView(request):
-    form = GetIDForm(request.POST)
-    if request.method == 'POST' and form.is_valid():
-        id = form.cleaned_data.get('id')
-        return redirect('update_server_type', id=id)
-    return render(request, 'servops/CRUD/CRUD_type_serveurs/update_type.html', {'form': form})
 
 def UpdateServerTypeViewModificate(request, id):
     server_type = ServerType.objects.get(id=id)
@@ -182,14 +151,6 @@ def UpdateServerTypeViewModificate(request, id):
     return render(request, 'servops/CRUD/CRUD_type_serveurs/update_type.html', {'form': form})
 
 ## CRUD Services
-## Attention, il manque la vue pour l'update + Lien avec le serveur pour savoir si il a assez de ressources
-
-def ReadServiceView(request):
-    form = GetIDForm(request.POST)
-    if request.method == 'POST' and form.is_valid():
-        id = form.cleaned_data.get('id')
-        return redirect('affiche_service', id=id)
-    return render(request, 'servops/CRUD/CRUD_services/read_service.html', {'form': form})
 
 def UpdateServiceView(request, id):
     service = get_object_or_404(Service, id=id)
@@ -241,13 +202,6 @@ def CreateServerView(request):
         form = ServerForm()
     return render(request, 'servops/CRUD/CRUD_serveurs/create_serveur.html', {'form': form})
 
-def ReadServerView(request):
-    form = GetIDForm(request.POST)
-    if request.method == 'POST' and form.is_valid():
-        id = form.cleaned_data.get('id')
-        return redirect('read_server', id=id)
-    return render(request, 'servops/CRUD/CRUD_serveurs/read_server.html', {'form': form})
-
 def AfficheServerView(request, id):
     server = get_object_or_404(Server, id=id)
     return render(request, 'servops/CRUD/CRUD_serveurs/read_server.html', {'server': server})
@@ -296,11 +250,6 @@ def pdf(request):
     return FileResponse(buffer, as_attachment=True, filename="liste_services.pdf")
 
 
-import csv
-from django.shortcuts import render, redirect
-from .forms import CSVUploadForm
-from .models import Server, Service, ServUser, Application
-
 def import_csv_view(request):
     if request.method == "POST":
         form = CSVUploadForm(request.POST, request.FILES)
@@ -310,12 +259,10 @@ def import_csv_view(request):
             reader = csv.DictReader(decoded_file)
 
             for row in reader:
-                # Fetch or create the server
                 server, created = Server.objects.get_or_create(name=row['launch_server'])
                 
-                # Check if it's an application or a service
                 if 'required_memory' in row:
-                    # It's a service
+
                     Service.objects.create(
                         name=row['name'],
                         launch_date=row['launch_date'],
@@ -324,7 +271,6 @@ def import_csv_view(request):
                         launch_server=server
                     )
                 else:
-                    # It's an application
                     user, created = ServUser.objects.get_or_create(
                         first_name=row['user_first_name'],
                         last_name=row['user_last_name'],

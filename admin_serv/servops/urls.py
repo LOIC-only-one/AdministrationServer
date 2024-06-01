@@ -20,14 +20,12 @@ urlpatterns = [
 
     ## CRUD SERVEURS
     path('servers/create/', views.CreateServerView, name='create_server'),
-    path('servers/read/<int:id>/', views.ReadServerView, name='read_server'),
     path('servers/update/<int:id>/', views.UpdateServerView, name='update_server'),
     path('servers/delete/<int:id>/', views.DeleteServerView, name='delete_server'),
     path('servers/', views.servers, name='servers_list'),
     
     ## CRUD SERVICES
     path('service/create/', views.CreateServiceView, name='create_service'),
-    path('service/read/', views.ReadServiceView, name='read_service'),
     path('service/update/<int:id>/', views.UpdateServiceView, name='update_service'),
     path('service/delete/<int:id>/', views.DeleteServiceView, name='delete_service'),
     path('service/<int:id>/', views.AfficheServiceView, name="affiche_service"),
@@ -36,14 +34,12 @@ urlpatterns = [
     ## CRUD USERS
     path('users/create/', views.CreateUsersView, name='create_users'),
     path('users/<int:id>/', views.AfficheUsersView, name="affiche_users"),
-    path('users/read/', views.ReadUsersView, name='read_users'),
     path('users/update/<int:id>/', views.UpdateUsersViewModificate, name='update_users'),
     path('users/delete/<int:id>/', views.DeleteUsersView, name='delete_users'),
 
     ## CRUD SERVER TYPES
     path('server_types/create/', views.CreateServerTypeView, name='create_server_type'),
     path('server_types/<int:id>/', views.AfficheServerTypeView, name="affiche_server_type"),
-    path('server_types/read/', views.ReadServerTypeView, name='read_server_type'),
     path('server_types/update/<int:id>/', views.UpdateServerTypeViewModificate, name='update_server_type'),
     path('server_types/delete/<int:id>/', views.DeleteServerTypeView, name='delete_server_type'),
 
