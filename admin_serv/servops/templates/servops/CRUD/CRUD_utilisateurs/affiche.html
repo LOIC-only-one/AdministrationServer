@@ -1,0 +1,27 @@
+{% extends 'servops/MAIN/main_dashboard.html' %}
+
+{% block title %}Mon Dashboard - Information utilisateur{% endblock %}
+
+{% block header %}Utilisateur - Récuperation - ID{% endblock %}
+
+{% block sidebar %}
+    <ul>
+        <li><a href="{% url 'index' %}">Accueil</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'users_crud' %}">Utilisateurs</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="service-box">
+        <h2>Informations de l'utilisateur</h2>
+        <ul>
+            <li><p>Nom d'utilisateur : {{ user.first_name }}</p></li>
+            <li><p>Prenom d'utilisateur : {{ user.last_name }}</p></li>
+            <li><p>Email : {{ user.email }}</p></li>
+        </ul>
+        <a href="{% url 'users_crud' %}">Continuer</a>
+    </div>
+</div>
+{% endblock %}

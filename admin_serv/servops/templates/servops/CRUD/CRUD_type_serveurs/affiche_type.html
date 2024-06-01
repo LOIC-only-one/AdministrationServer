@@ -1,0 +1,27 @@
+{% extends 'servops/MAIN/main_dashboard.html' %}
+
+{% block title %}Mon Dashboard - Informations Type de serveurs{% endblock %}
+
+{% block header %}Récuperation - ID{% endblock %}
+
+{% block sidebar %}
+    <ul>
+        <li><a href="{% url 'index' %}">Accueil</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'server_types_crud' %}">Types Serveurs</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="service-box">
+        <h2>Informations types de serveurs</h2>
+        <p>Voici les informations du type de serveur {{ server_type.id }} :</p>
+        <ul>
+            <li><p>Type : {{server_type.type}}</p></li>
+            <li><p>Description : {{server_type.description}}</p></li>
+        </ul>
+        <a href="{% url 'server_types_crud' %}">Continuer</a>
+    </div>
+</div>
+{% endblock %}
