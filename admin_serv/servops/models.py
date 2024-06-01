@@ -65,7 +65,7 @@ class ServUser(models.Model):
     
 class Application(models.Model):
     name = models.CharField(max_length=200)
-    logo = models.ImageField(upload_to='logos/')
+    logo = models.ImageField(upload_to='logos/', null=True, blank=True, default='logos/logo.png')
     user = models.ForeignKey(ServUser, on_delete=models.CASCADE, related_name='applications')
     services = models.ManyToManyField(Service, related_name='applications')
     launch_server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='applications')

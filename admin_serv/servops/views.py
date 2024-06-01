@@ -296,6 +296,11 @@ def pdf(request):
     return FileResponse(buffer, as_attachment=True, filename="liste_services.pdf")
 
 
+import csv
+from django.shortcuts import render, redirect
+from .forms import CSVUploadForm
+from .models import Server, Service, ServUser, Application
+
 def import_csv_view(request):
     if request.method == "POST":
         form = CSVUploadForm(request.POST, request.FILES)
@@ -305,8 +310,12 @@ def import_csv_view(request):
             reader = csv.DictReader(decoded_file)
 
             for row in reader:
-                try:
-                    server = Server.objects.get_or_create(name=row['launch_server'])
+                # Fetch or create the server
+                server, created = Server.objects.get_or_create(name=row['launch_server'])
+                
+                # Check if it's an application or a service
+                if 'required_memory' in row:
+                    # It's a service
                     Service.objects.create(
                         name=row['name'],
                         launch_date=row['launch_date'],
@@ -314,8 +323,29 @@ def import_csv_view(request):
                         required_memory=row['required_memory'],
                         launch_server=server
                     )
-                except Exception as e:
-                    continue
+                else:
+                    # It's an application
+                    user, created = ServUser.objects.get_or_create(
+                        first_name=row['user_first_name'],
+                        last_name=row['user_last_name'],
+                        email=row['user_email']
+                    )
+
+                    application = Application(
+                        name=row['name'],
+                        user=user,
+                        launch_server=server,
+                        logo='logos/logo.png'
+                    )
+
+                    application.save()
+
+                    services = row['services'].split('|')
+                    for service_name in services:
+                        service = Service.objects.get(name=service_name)
+                        application.services.add(service)
+                    application.save()
+
             return redirect('import_csv')
     else:
         form = CSVUploadForm()
