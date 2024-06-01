@@ -80,19 +80,25 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 """
 
 --> A ajouter quand on fera la liaison avec la base de données
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # ou mysql, sqlite3, etc.
-        'NAME': 'nom_de_votre_base_de_donnees',
-        'USER': 'nom_utilisateur',
-        'PASSWORD': 'mot_de_passe',
-        'HOST': 'adresse_du_serveur',
-        'PORT': 'port',  # généralement 5432 pour postgresql, 3306 pour mysql
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db',
+        'USER': 'servops',
+        'PASSWORD': 'servops',
+        'HOST': '192.168.1.142', # A changer à l'IUT
+        'PORT': '3306',
+    }
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 """
