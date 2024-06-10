@@ -365,3 +365,18 @@ form.inline input[type="submit"]:hover {
     color: #0056b3;
 }
 
+.style-link {
+    display: inline-block;
+    margin-top: 20px; 
+    padding: 10px 20px;
+    background-color: #007bff;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.style-link:hover {
+    background-color: #0056b3;
+}
+
