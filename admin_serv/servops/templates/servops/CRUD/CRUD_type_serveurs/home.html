@@ -13,22 +13,30 @@
 {% endblock sidebar %}
 
 {% block content %}
-<h2> Liste des types de serveurs </h2>
+<h2>Liste des types de serveurs</h2>
 <table class="table-user">
-    <tr> <th>ID</th> <th>Type</th> <th>Description</th> <th>Actions</th> </tr>
-{% for server_type in server_types %}
-    <tr> 
-        <td>{{server_type.id}}</td> 
-        <td>{{server_type.type}}</td> 
-        <td>{{server_type.description}}</td>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    {% for server_type in server_types %}
+    <tr>
+        <td>{{ server_type.id }}</td>
+        <td>{{ server_type.type }}</td>
+        <td>{{ server_type.description }}</td>
         <td>
-            <a href="{% url 'update_server_type' server_type.id %}">Modifier</a>
-            <form action="{% url 'delete_server_type' server_type.id %}" method="post" class="inline">
+            <form action="{% url 'update_server_type' server_type.id %}" method="post" class="inline-form">
                 {% csrf_token %}
-                <input type="submit" value="Supprimer">
+                <input type="submit" value="Modifer" class="inline-button">
+            </form>
+            <form action="{% url 'delete_server_type' server_type.id %}" method="post" class="inline-form">
+                {% csrf_token %}
+                <input type="submit" value="Supprimer" class="inline-button">
             </form>
         </td>
     </tr>
-{% endfor %}
+    {% endfor %}
 </table>
 {% endblock content %}
