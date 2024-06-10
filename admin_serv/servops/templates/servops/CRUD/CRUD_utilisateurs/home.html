@@ -3,7 +3,7 @@
 
 {% block title %}Gestion - Utilisateurs{% endblock %}
 
-{% block header %}Utilisateurs -  Affichage {% endblock %}
+{% block header %}Utilisateurs - Affichage{% endblock %}
 
 {% block sidebar %}
 <ul>
@@ -13,25 +13,40 @@
 {% endblock sidebar %}
 
 {% block content %}
-<h2> Liste des Utilisateurs </h2>
+<h2>Liste des Utilisateurs</h2>
 <table class="table-user">
-    <tr> <th>ID</th> <th>FN</th> <th>LN</th> <th>Email</th> <th>Actions</th> </tr>
-{% for user in users %}
-    <tr> 
-        <td>{{user.id}}</td> 
-        <td>{{user.first_name}}</td> 
-        <td>{{user.last_name}}</td> 
-        <td>{{user.email}}</td>
-        <td>
-            <a href="{% url 'update_users' user.id %}">Modifier</a>
-            <form action="{% url 'delete_users' user.id %}" method="post" class="inline">
-                {% csrf_token %}
-                <input type="submit" value="Supprimer">
-            </form>
-        </td>
+    <tr>
+        <th>ID</th>
+        <th>FN</th>
+        <th>LN</th>
+        <th>Email</th>
+        <th>Actions</th>
     </tr>
-{% empty %}
-    <li>Aucun utilisateur trouvé.</li>
-{% endfor %}
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+        <td class="action-cell">
+            <form action="{% url 'delete_users' user.id %}" method="post" class="inline-form">
+                {% csrf_token %}
+                <div class="action-cell">
+                     <input type="submit" value="Supprimer" class="inline-button">
+                </div>                 
+                </form>
+                <form action="{% url 'update_users' user.id %}" method="post" class="inline-form">
+                    {% csrf_token %}
+                    <input type="submit" value="Modifier" class="inline-button">
+                </form>
+            </div>
+        </td>
+        
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">Aucun utilisateur trouvé.</td>
+    </tr>
+    {% endfor %}
 </table>
 {% endblock content %}
