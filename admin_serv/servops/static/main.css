@@ -347,11 +347,90 @@ button:hover {
     gap: 20px;
 }
 
+
+
+
+.logo {
+    display: flex;
+    width: 15%;
+    height: 15%;
+    margin-top: -25px;
+    margin-bottom: -45px;
+}
+
+.texte_accueil p {
+    font-size: 18px;
+    margin-left: -7%;
+    margin-bottom: 7px;
+    width: 100%;
+}
+
+.texte_accueil ul li p {
+    font-size: 17px;
+    margin: 10px;
+}
+
+.texte_accueil ul li {
+    font-size: 17px;
+    margin-left: 3%;
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+.texte_accueil ul ul li {
+    font-size: 17px;
+    margin-left: 5%;
+    list-style-type: none;
+}
+
+.texte_accueil h1 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-decoration: underline;
+    font-size: 25px;
+    margin: 2%;
+    margin-left: -50px;
+}
+
+.conteneur {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.bloc {
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+}
+
+.bloc p {
+    width: 80%;
+    text-align: center;
+}
+
+.bloc ul {
+    width: 80%;
+    margin-top: 3%;
+    text-align: center;
+}
+
+
+.block {
+    margin: 25px;
+    padding: 30px;
+}
+
+.separation {
+    height: 3px;
+    background-color: #333;
+    margin: 20px 0;
+    width: 85%;
+}
+
 form.inline {
     display: inline;
 }
 
-form.inline input[type="submit"] {
+form.inline input[type="submit"]  {
     background: none;
     border: none;
     padding: 0;
@@ -364,10 +443,9 @@ form.inline input[type="submit"] {
 form.inline input[type="submit"]:hover {
     color: #0056b3;
 }
-
 .style-link {
     display: inline-block;
-    margin-top: 20px; 
+    margin-top: 20px; /* Ajuste cette valeur selon tes besoins */
     padding: 10px 20px;
     background-color: #007bff;
     border-radius: 5px;
@@ -379,4 +457,9 @@ form.inline input[type="submit"]:hover {
 .style-link:hover {
     background-color: #0056b3;
 }
+
+
+
+
+
 
