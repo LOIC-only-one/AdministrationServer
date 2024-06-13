@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'admin_serv.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -83,8 +83,6 @@ DATABASES = {
     }
 }
 """
-
---> A ajouter quand on fera la liaison avec la base de données
 
 DATABASES = {
     'default': {
@@ -96,7 +94,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
