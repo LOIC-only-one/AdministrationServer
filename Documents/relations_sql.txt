@@ -53,13 +53,12 @@ application_id (FK) -> Application.id
 service_id (FK) -> Service.id
 
 
-
-
+Commandes MYSQL : 
 
 CREATE TABLE ServerType (
     id SERIAL PRIMARY KEY,
     type VARCHAR(200) NOT NULL,
-    description TEXT
+    description TEXT NOT NULL
 );
 
 CREATE TABLE Server (
@@ -68,7 +67,9 @@ CREATE TABLE Server (
     server_type_id INTEGER NOT NULL REFERENCES ServerType(id) ON DELETE CASCADE,
     num_processors INTEGER NOT NULL,
     memory_capacity INTEGER NOT NULL,
-    storage_capacity INTEGER NOT NULL
+    storage_capacity INTEGER NOT NULL,
+    used_processors INTEGER DEFAULT 0,
+    used_memory INTEGER DEFAULT 0
 );
 
 CREATE TABLE Service (
@@ -77,6 +78,7 @@ CREATE TABLE Service (
     launch_date DATE NOT NULL,
     memory_used INTEGER NOT NULL,
     required_memory INTEGER NOT NULL,
+    required_processors INTEGER DEFAULT 1,
     launch_server_id INTEGER NOT NULL REFERENCES Server(id) ON DELETE CASCADE
 );
 
@@ -84,26 +86,25 @@ CREATE TABLE ServUser (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    email VARCHAR(254) NOT NULL UNIQUE
+    email VARCHAR(254) UNIQUE NOT NULL
 );
 
 CREATE TABLE Application (
     id SERIAL PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
     logo VARCHAR(100),
-    user_id INTEGER NOT NULL REFERENCES ServUser(id) ON DELETE CASCADE
+    user_id INTEGER NOT NULL REFERENCES ServUser(id) ON DELETE CASCADE,
+    launch_server_id INTEGER NOT NULL REFERENCES Server(id) ON DELETE CASCADE
 );
 
-CREATE TABLE Application_services (
+CREATE TABLE Application_Services (
     id SERIAL PRIMARY KEY,
     application_id INTEGER NOT NULL REFERENCES Application(id) ON DELETE CASCADE,
-    service_id INTEGER NOT NULL REFERENCES Service(id) ON DELETE CASCADE,
-    UNIQUE (application_id, service_id)
+    service_id INTEGER NOT NULL REFERENCES Service(id) ON DELETE CASCADE
 );
 
 CREATE TABLE ResourceUsage (
     id SERIAL PRIMARY KEY,
     application_id INTEGER NOT NULL REFERENCES Application(id) ON DELETE CASCADE,
-    service_id INTEGER NOT NULL REFERENCES Service(id) ON DELETE CASCADE,
-    UNIQUE (application_id, service_id)
+    service_id INTEGER NOT NULL REFERENCES Service(id) ON DELETE CASCADE
 );
