@@ -1,3 +1,61 @@
+Modèle relationnel :
+
+
+ServerType
+id (PK)
+type
+description
+
+
+Server
+id (PK)
+name
+server_type_id (FK) -> ServerType.id
+num_processors
+memory_capacity
+storage_capacity
+used_processors
+used_memory
+
+
+Service
+id (PK)
+name
+launch_date
+memory_used
+required_memory
+required_processors
+launch_server_id (FK) -> Server.id
+
+ServUser
+id (PK)
+first_name
+last_name
+email
+
+Application
+id (PK)
+name
+logo
+user_id (FK) -> ServUser.id
+launch_server_id (FK) -> Server.id
+
+
+Application_Services
+id (PK)
+application_id (FK) -> Application.id
+service_id (FK) -> Service.id
+
+
+ResourceUsage
+id (PK)
+application_id (FK) -> Application.id
+service_id (FK) -> Service.id
+
+
+
+
+
 CREATE TABLE ServerType (
     id SERIAL PRIMARY KEY,
     type VARCHAR(200) NOT NULL,
